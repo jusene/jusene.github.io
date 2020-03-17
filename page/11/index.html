@@ -369,6 +369,37 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2017/08/31/dockerfile/" >
+            
+                <span>利用Dockerfile构建Docker镜像</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="为什么使用Dockerfile"><a href="#为什么使用Dockerfile" class="headerlink" title="为什么使用Dockerfile"></a>为什么使用Dockerfile</h2><p>常见的创建自己想要的镜像有两种：</p>
+<ol>
+<li>一种是通过docker commit将修改好的镜像提交为本地的新镜像，我们都知道docker的存储是分层存储，只有最上层才是可读写的，而我们的普通操作往往会调用许多文件或者打开许多文件，导致这些文件发生改变，而改变了就需要写入这层存储，将大量的无关内容添加为新的镜像内容，这会造成镜像文件极其臃肿，可以通过docker diff来看下普通操作发生了多少的变化。而且通过这种方式提交上去的镜像出了提交本人无人知道做了什么操作，极其不容易管理。所以docker commit除了学习外或者入侵取证外都不建议直接在生产环境使用。
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/31</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "docker">docker</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2017/08/29/docker-network/" >
             
                 <span>Docker 网络</span>
@@ -621,35 +652,6 @@ height:50vh;
             <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "rabbitmq">rabbitmq</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/06/Git/" >
-            
-                <span>Git 分布式版本控制</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>Git算是出身名门，它是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何大小的项目管理，最初是Linus Torvalds为了帮助管理Linux内核开发而开发的一个开源的版本控制软件，如今因为Git造就了世界上最大的代码托管网站Github，更有社区的GitLab使用。</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/06</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "git">git</a>
     
 </div>
             
@@ -4007,9 +4009,14 @@ height:50vh;
     
     
     
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 181
+        Total : 182
         </div>
         <!-- search  -->
         
@@ -4022,6 +4029,11 @@ height:50vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span><a class="archive-post-title" href= "/2020/03/17/go-4/" >Go语言学习-复合数据类型（数组）</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -4968,9 +4980,23 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="drbd"><span class="iconfont-archer">&#xe606;</span>drbd</span>
     
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
         <span class="sidebar-tag-name" data-tags="ssh"><span class="iconfont-archer">&#xe606;</span>ssh</span>
     
-        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+        <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
+    
+        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
+    
+        <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
+    
+        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
     
         <span class="sidebar-tag-name" data-tags="ELK"><span class="iconfont-archer">&#xe606;</span>ELK</span>
     
@@ -4982,26 +5008,6 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
     
-        <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
-    
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
-        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
-    
-        <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
-    
-        <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
-    
-        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
-    
-        <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
-    
-        <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
-    
-        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
-    
-        <span class="sidebar-tag-name" data-tags="haproxy"><span class="iconfont-archer">&#xe606;</span>haproxy</span>
-    
         <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
@@ -5011,6 +5017,8 @@ height:50vh;
         <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
+    
+        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
     
         <span class="sidebar-tag-name" data-tags="lvs"><span class="iconfont-archer">&#xe606;</span>lvs</span>
     
@@ -5032,11 +5040,11 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="rabbitmq"><span class="iconfont-archer">&#xe606;</span>rabbitmq</span>
     
-        <span class="sidebar-tag-name" data-tags="rsync"><span class="iconfont-archer">&#xe606;</span>rsync</span>
-    
         <span class="sidebar-tag-name" data-tags="saltstack"><span class="iconfont-archer">&#xe606;</span>saltstack</span>
     
         <span class="sidebar-tag-name" data-tags="screen"><span class="iconfont-archer">&#xe606;</span>screen</span>
+    
+        <span class="sidebar-tag-name" data-tags="rsync"><span class="iconfont-archer">&#xe606;</span>rsync</span>
     
         <span class="sidebar-tag-name" data-tags="socat"><span class="iconfont-archer">&#xe606;</span>socat</span>
     
@@ -5044,7 +5052,9 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="tcpdump"><span class="iconfont-archer">&#xe606;</span>tcpdump</span>
     
-        <span class="sidebar-tag-name" data-tags="fastdfs"><span class="iconfont-archer">&#xe606;</span>fastdfs</span>
+        <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
+    
+        <span class="sidebar-tag-name" data-tags="haproxy"><span class="iconfont-archer">&#xe606;</span>haproxy</span>
     
         <span class="sidebar-tag-name" data-tags="iscsi"><span class="iconfont-archer">&#xe606;</span>iscsi</span>
     
@@ -5052,13 +5062,13 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
     
-        <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
-    
         <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
     
-        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
+        <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
         <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
+    
+        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
     
         <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
     
@@ -5067,6 +5077,8 @@ height:50vh;
         <span class="sidebar-tag-name" data-tags="supervisord"><span class="iconfont-archer">&#xe606;</span>supervisord</span>
     
         <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
+    
+        <span class="sidebar-tag-name" data-tags="fastdfs"><span class="iconfont-archer">&#xe606;</span>fastdfs</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -5105,29 +5117,29 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
-    
         <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
+    
+        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
         <span class="sidebar-category-name" data-categories="storage"><span class="iconfont-archer">&#xe60a;</span>storage</span>
     
         <span class="sidebar-category-name" data-categories="nginx"><span class="iconfont-archer">&#xe60a;</span>nginx</span>
     
-        <span class="sidebar-category-name" data-categories="Nosql"><span class="iconfont-archer">&#xe60a;</span>Nosql</span>
-    
-        <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
+        <span class="sidebar-category-name" data-categories="ansible"><span class="iconfont-archer">&#xe60a;</span>ansible</span>
     
         <span class="sidebar-category-name" data-categories="Shell"><span class="iconfont-archer">&#xe60a;</span>Shell</span>
-    
-        <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
-    
-        <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
-    
-        <span class="sidebar-category-name" data-categories="ansible"><span class="iconfont-archer">&#xe60a;</span>ansible</span>
     
         <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
     
         <span class="sidebar-category-name" data-categories="Django"><span class="iconfont-archer">&#xe60a;</span>Django</span>
+    
+        <span class="sidebar-category-name" data-categories="Nosql"><span class="iconfont-archer">&#xe60a;</span>Nosql</span>
+    
+        <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
+    
+        <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
+    
+        <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
     
         <span class="sidebar-category-name" data-categories="Java"><span class="iconfont-archer">&#xe60a;</span>Java</span>
     
@@ -5149,9 +5161,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="optimization"><span class="iconfont-archer">&#xe60a;</span>optimization</span>
     
-        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
-    
         <span class="sidebar-category-name" data-categories="varnish"><span class="iconfont-archer">&#xe60a;</span>varnish</span>
+    
+        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
