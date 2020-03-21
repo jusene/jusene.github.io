@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Jusene&#39;s Blog</title>
+    <title>go · Jusene&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -213,12 +213,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Jusene&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">go</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Jusene's Blog</a>
 </header>
@@ -230,24 +241,68 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            go
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">0</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/03/21</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -348,155 +403,63 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/10/27/knock/" >
-            
-                <span>knockd 敲敲门</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="knockd"><a href="#knockd" class="headerlink" title="knockd"></a>knockd</h2><p>为自己留个后门，为了可以在不同的环境中连上服务器，为了方便管理，总希望这么做，但是如此一来又得担心安全问题。所以一般我们针对特定的服务都是固定ip访问，所以想要即安全又可以任何环境都可以访问，我们就需要让防火墙在特定的时刻开放目前ip的访问，而我们既无法连接上服务器又要让服务器开放端口，这似乎是不可能的事。而knock就为我们提供了这样的服务，knock与防护墙通过端口访问形成特定的规则，从而使防护墙验证来源安全而自动开放防火墙规则，而knock就是敲门的意思。</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/10/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "security">security</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/10/27/portsentry/" >
-            
-                <span>PortSentry 防止恶意端口扫描</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="PortSentry"><a href="#PortSentry" class="headerlink" title="PortSentry"></a>PortSentry</h2><p>在互联网上总有许多恶意的扫描，为了获得服务器上的服务，外部暴露的端口就可以得知，而一些服务需要通过改变端口的服务，虽然我们依旧可以通过协议测试知道该端口后的服务，但这也是无疑增加了入侵的成本，大部分的入侵都是会通过端口扫描器来测试服务器端口，所以我们可以依据这一点来更加增加入侵的成本。PortSentry就是这么一款用来检测恶意扫描的工具，PortSentry可以实现检测几乎所有类型的网络扫描，并做出了反应。一旦发现可疑行为，PortSentry可以采用如下的措施来加强防范：</p>
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://jusene.github.io">Zhang Jusene</a>
+            <p>原文链接：<a href="http://jusene.github.io/2020/03/21/go-7/">http://jusene.github.io/2020/03/21/go-7/</a>
+            <p>发表日期：<a href="http://jusene.github.io/2020/03/21/go-7/">March 21st 2020, 3:13:15 pm</a>
+            <p>更新日期：<a href="http://jusene.github.io/2020/03/21/go-7/">March 21st 2020, 3:13:15 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/10/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "security">security</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/10/13/nginx-lua/" >
-            
-                <span>nginx+nginx_lua实现WAF防护功能</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="nginx-lua"><a href="#nginx-lua" class="headerlink" title="nginx_lua"></a>nginx_lua</h2><p>nginx_lua模块是nginx的第三方模块，它可以将lua语言嵌入到nginx配置中，从而极大的扩展了nginx的能力，nginx以高并发而知名，而lua作为嵌入式语言轻便，两者的结合可以做到在nginx层就实现编程,而这里我们加入waf的lua过滤编程来实现waf。</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/10/13</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "security">security</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/09/iptables/" >
-            
-                <span>iptables常见用法总结</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h2><p>iptables(linux防火墙)对于linux player来说都不是陌生，这是一款基于包过滤的4层防护软件，基于内核netfilter来过滤数据报文，在整个数据流经过程中，共设置了5个hooks，我们称之为链，基于不同的功能又形成了4个表，4表5链是iptables的核心功能。</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/04/09</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "security">security</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/02/24/fail2ban/" >
-            
-                <span>防网络嗅探利器fail2ban</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="fail2ban"><a href="#fail2ban" class="headerlink" title="fail2ban"></a>fail2ban</h2><p>fail2ban可以监视你的系统日志，然后匹配日志的错误信息（正则式匹配）执行相应的屏蔽动作（一般情况下是调用防火墙屏蔽），如:当有人在试探你的SSH、SMTP、FTP、HTTP密码，只要达到你预设的次数，fail2ban就会调用防火墙屏蔽这个IP，而且可以发送e-mail通知系统管理员，是一款很实用、很强大的软件！其实fail2ban就是用来监控，具体是调用iptables来实现动作！</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "security">security</a>
-    
-</div>
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/03/21/go-6/" title= "Go语言学习-复合数据类型（切片）">
+                    <div class="prevTitle">Go语言学习-复合数据类型（切片）</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= MTAyMC8yNzg3Ni80NDUz>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -574,6 +537,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -5016,6 +4997,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
