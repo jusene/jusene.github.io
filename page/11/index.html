@@ -369,217 +369,6 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/09/04/docker-fig/" >
-            
-                <span>使用Fig编排Docker</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="编排"><a href="#编排" class="headerlink" title="编排"></a>编排</h2><p>编排是一个没有严格定义的概念，大致描述的就是自动配置，协作和管理服务的过程，在Docker的世界里，编排用来描述一组实践过程，这个过程运行多个多个容器里的应用，通过将这些容器链接起来，快速构建出生产环境与开发环境。</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/09/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "docker">docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/09/03/docker-registry/" >
-            
-                <span>Docker镜像仓库</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="Docker仓库"><a href="#Docker仓库" class="headerlink" title="Docker仓库"></a>Docker仓库</h2><p>Docker镜像仓库简单来说就是用来存储自己制作的docker镜像，这docker镜像仓库我称为docker-registry，Docker官方给我们提供了公共仓库(Docker Hub)和私有仓库(Docker registry),想要使用Docker Hub我们只需要在Docker Hub上注册自己的docker仓库即可，而Docker registry则需要我们自己来搭建仓库。</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/09/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "docker">docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/09/02/docker-storage/" >
-            
-                <span>Docker数据卷</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h2><p>讲起docker，数据的持久化一直是需要我们关注的问题，数据卷是一个可供一个或多个容器使用的特殊目录，它绕过UFS，它提供了很多有用的特性：</p>
-<ul>
-<li>数据卷可以在容器之间共享和重用</li>
-<li>对数据卷的修改立马生效</li>
-<li>对数据卷的更新，不会影响镜像</li>
-<li>数据卷默认会一直存在，即使容器被删除
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/09/02</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "docker">docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/31/dockerfile/" >
-            
-                <span>利用Dockerfile构建Docker镜像</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="为什么使用Dockerfile"><a href="#为什么使用Dockerfile" class="headerlink" title="为什么使用Dockerfile"></a>为什么使用Dockerfile</h2><p>常见的创建自己想要的镜像有两种：</p>
-<ol>
-<li>一种是通过docker commit将修改好的镜像提交为本地的新镜像，我们都知道docker的存储是分层存储，只有最上层才是可读写的，而我们的普通操作往往会调用许多文件或者打开许多文件，导致这些文件发生改变，而改变了就需要写入这层存储，将大量的无关内容添加为新的镜像内容，这会造成镜像文件极其臃肿，可以通过docker diff来看下普通操作发生了多少的变化。而且通过这种方式提交上去的镜像出了提交本人无人知道做了什么操作，极其不容易管理。所以docker commit除了学习外或者入侵取证外都不建议直接在生产环境使用。
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "docker">docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/29/docker-network/" >
-            
-                <span>Docker 网络</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><p>当我们启动Docker daemon服务的时候默认会出现一个docker0的虚拟网卡，在虚拟化网络的时候我们已经明确知道这是网桥，我们启动一个容器的时候，默认会有虚拟网络桥到这块网卡，并形成nat网络，而docker默认创建的网络都是nat网络，我们常见的docker网络如下图所示:</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/29</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "docker">docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/27/docker1/" >
-            
-                <span>Docker基本应用</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>Docker作为C/S架构的应用，docker客户端只需要向docker服务端或守护进程发出请求，服务端将完成请求并返回所有工作并返回结果。docker提供了一个命令行工具docker以及一整套RESTful API。</p>
-<p>核心组件：<br>docker client:docker的客户端工具，是用户使用docker的主要接口，docker client与docker daemon通信并将结果返回给用户<br>docker daemon:运行于宿主机，docker守护进程，用户可通过docker client与其交互<br>image:镜像文件是只读的；用来创建container，一个镜像可以运行多个container；镜像文件可以通过Dockerfile文件创建，也可以从docker hub/registry下载</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "docker">docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/26/docker/" >
-            
-                <span>Docker 容器虚拟化基础</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>Docker是一个开源的应用容器引擎，让开发者可以打包开发的应用以及依赖包到一个可移植的容器中，然后发布到任何Linux系统上，也可以实现虚拟化，如果Java可以做到“一次编译，到处运行”，而Docker则可以做到‘构建一次，在各平台运行’，Docker以其高度可扩展性，移植性，轻量型的特点，已然成为这个时代的明星产品。</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/26</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "docker">docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2017/08/21/rpmbuild/" >
             
                 <span>RPM包 制作</span>
@@ -662,10 +451,219 @@ height:50vh;
         </div>
     </article>
     
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2017/08/17/kvm/" >
+            
+                <span>kvm虚拟化技术(基础)</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="hypervisor"><a href="#hypervisor" class="headerlink" title="hypervisor"></a>hypervisor</h2><p>虚拟化已经成为互联网时代的主角，从云计算，容器技术，无不彰显着虚拟化技术的广阔前景，我们常见的虚拟化技术的有vmware，kvm，xen，qemu等，就目前而言vmware在虚拟化技术中份额应该是最大的，但相对的价格也是最贵的，而就开源的实现来说kvm和xen应该为我们提供了最佳的技术实践。</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/17</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "kvm">kvm</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2017/08/10/sysctl/" >
+            
+                <span>系统内核参数调优(持续更新)</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="内核参数"><a href="#内核参数" class="headerlink" title="内核参数"></a>内核参数</h2><p>Linux秉承一切皆文件的思想，我们可以直接修改/proc或/sys下的文件直接修改内核参数，系统内核优化千变万化，可能会因一个参数性能得到质的飞跃，也可能直接无解的服务宕机，所以别随意修改，除非你知道自己在干什么。</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/10</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "kernel">kernel</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2017/08/10/rabbitmq/" >
+            
+                <span>RabbitMQ 消息型队列中间件(扫盲篇)</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>学习RabbitMQ,首先需要了解的是AMQP,即高级队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。AMQP的主要特征是面向消息，队列，路由(包括点对点的发布/订阅)，可靠性，安全。</p>
+<p>RabbitMQ是一个开源的AMQP实现，服务器端由Erlang语言编写，支持多种客户端，如:Python、Ruby、Java、PHP等，用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不俗。</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/10</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "rabbitmq">rabbitmq</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2017/08/06/Git/" >
+            
+                <span>Git 分布式版本控制</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>Git算是出身名门，它是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何大小的项目管理，最初是Linus Torvalds为了帮助管理Linux内核开发而开发的一个开源的版本控制软件，如今因为Git造就了世界上最大的代码托管网站Github，更有社区的GitLab使用。</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/06</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "git">git</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2017/08/03/elk/" >
+            
+                <span>ELK Stack 日志分析平台</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="ELK-Stack"><a href="#ELK-Stack" class="headerlink" title="ELK Stack"></a>ELK Stack</h2><p>ELK Stack我们常常说这是日志分析平台，但是我认为这更应该是大数据分析平台，因为这不仅仅是可以分析日志，只是对于大部分公司来说这是分析日志绝佳的技术栈，所以这里我们也是根据公司业务做日志分析。</p>
+<p>ELK Stack我们统称是Elasticsearch,LogStash,Kibana的集群构造，Elastcsearch我们大致介绍了下这是一个功能强大的搜索引擎和文档NoSQL数据库，LogStash我们可以理解是一个数据采集器和管道，Kibina将LogStash收集到的数据存在Elasticsearch的数据通过web展示出来。在这里Elasticsearch我们讲过了，LogStash是需要讲的重点，而Kibana只是数据展示可以自行摸索展示。</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/03</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "ELK">ELK</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2017/07/27/elasticsearch/" >
+            
+                <span>Elasticsearch 大数据分析</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h2><p>Elasticsearch是一个基于Apache Lucene的开源搜索引擎，无论是开源还是专有领域，Lucene可以被认为是迄今为止最先进、性能最好的、功能最全的搜索引擎库，Lucene非常复杂，而Elasticsearch通过RESTful API隐藏了Lucene的复杂性，让搜索变得更简单，不过Elasticsearch不仅仅是一个搜索，它更是文档NoSQL体系的一种，我们可以这样描述它：</p>
+<ul>
+<li>分布式的实时文档存储，每个字段都可以被索引并可被搜索</li>
+<li>分布式的实时分析搜索引擎</li>
+<li>可以扩展到上百台大集群，处理PB级结构化或非结构化数据<br>而且这些功能被集成到一个服务中，通过RESTful API调用，满足各种编程语言的需求。
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/07/27</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "ELK">ELK</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2017/07/22/fastdfs/" >
+            
+                <span>FastDFS分布式存储实现</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="FastDFS"><a href="#FastDFS" class="headerlink" title="FastDFS"></a>FastDFS</h2><p>FastDFS是一个开源的轻量级分布式文件系统，整体功能与MogileFS十分相似，由C编写，无论在性能，冗余备份，负载均衡等方面都比MogileFS提升了不少，整个文件系统也只可以通过API进行访问。</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/07/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "fastdfs">fastdfs</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/10/">&amp;#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/12/">NEXT &amp;#62;</a>
+        <a class="extend prev" rel="prev" href="/page/10/">&amp;#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/12/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -3946,148 +3944,9 @@ height:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 185
+        Total : 178
         </div>
         <!-- search  -->
         
@@ -4103,42 +3962,7 @@ height:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/2020/03/21/go-7/" >go</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/2020/03/21/go-6/" >Go语言学习-复合数据类型（切片）</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/17</span><a class="archive-post-title" href= "/2020/03/17/go-5/" >go</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/17</span><a class="archive-post-title" href= "/2020/03/17/go-4/" >Go语言学习-复合数据类型（数组）</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/16</span><a class="archive-post-title" href= "/2020/03/16/go-3/" >Go语言学习-流程控制</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2020/03/15/go-2/" >Go语言学习-基础数据类型</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/13</span><a class="archive-post-title" href= "/2020/03/13/go-1/" >GO语言学习-程序结构</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/13</span><a class="archive-post-title" href= "/2020/03/13/go/" >GO语言学习-开发环境</a>
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2020/04/16/go/" >Go语言学习</a>
         </li>
     
     
@@ -4271,12 +4095,12 @@ height:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/celery/" >Celery 分布式任务队列(一)</a>
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/letsencrypt/" >Let's Encrypt免费申请SSL证书</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/letsencrypt/" >Let's Encrypt免费申请SSL证书</a>
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/celery/" >Celery 分布式任务队列(一)</a>
         </li>
     
     
@@ -5072,31 +4896,13 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="ELK"><span class="iconfont-archer">&#xe606;</span>ELK</span>
     
-        <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
-    
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
-        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
-    
-        <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
-    
-        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
-    
-        <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
-    
-        <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
-    
-        <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
-    
-        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
-    
-        <span class="sidebar-tag-name" data-tags="bash"><span class="iconfont-archer">&#xe606;</span>bash</span>
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
         <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
     
-        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
-    
         <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
+    
+        <span class="sidebar-tag-name" data-tags="bash"><span class="iconfont-archer">&#xe606;</span>bash</span>
     
         <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
     
@@ -5107,6 +4913,10 @@ height:50vh;
         <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
+    
+        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
+    
+        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
     
         <span class="sidebar-tag-name" data-tags="lvs"><span class="iconfont-archer">&#xe606;</span>lvs</span>
     
@@ -5140,7 +4950,19 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="tcpdump"><span class="iconfont-archer">&#xe606;</span>tcpdump</span>
     
-        <span class="sidebar-tag-name" data-tags="fastdfs"><span class="iconfont-archer">&#xe606;</span>fastdfs</span>
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
+    
+        <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
+    
+        <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
+    
+        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
+    
+        <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
+    
+        <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
     
         <span class="sidebar-tag-name" data-tags="haproxy"><span class="iconfont-archer">&#xe606;</span>haproxy</span>
     
@@ -5150,13 +4972,13 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
     
-        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
-    
         <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
-        <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
+        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
     
         <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
+    
+        <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
     
         <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
     
@@ -5165,6 +4987,8 @@ height:50vh;
         <span class="sidebar-tag-name" data-tags="supervisord"><span class="iconfont-archer">&#xe606;</span>supervisord</span>
     
         <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
+    
+        <span class="sidebar-tag-name" data-tags="fastdfs"><span class="iconfont-archer">&#xe606;</span>fastdfs</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -5203,9 +5027,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
-    
         <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
+    
+        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
         <span class="sidebar-category-name" data-categories="storage"><span class="iconfont-archer">&#xe60a;</span>storage</span>
     
@@ -5215,17 +5039,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
     
-        <span class="sidebar-category-name" data-categories="ansible"><span class="iconfont-archer">&#xe60a;</span>ansible</span>
-    
-        <span class="sidebar-category-name" data-categories="Shell"><span class="iconfont-archer">&#xe60a;</span>Shell</span>
-    
-        <span class="sidebar-category-name" data-categories="Django"><span class="iconfont-archer">&#xe60a;</span>Django</span>
-    
-        <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
-    
         <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
     
         <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
+    
+        <span class="sidebar-category-name" data-categories="Shell"><span class="iconfont-archer">&#xe60a;</span>Shell</span>
+    
+        <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
     
         <span class="sidebar-category-name" data-categories="Java"><span class="iconfont-archer">&#xe60a;</span>Java</span>
     
@@ -5245,11 +5065,15 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="saltstack"><span class="iconfont-archer">&#xe60a;</span>saltstack</span>
     
+        <span class="sidebar-category-name" data-categories="ansible"><span class="iconfont-archer">&#xe60a;</span>ansible</span>
+    
+        <span class="sidebar-category-name" data-categories="Django"><span class="iconfont-archer">&#xe60a;</span>Django</span>
+    
         <span class="sidebar-category-name" data-categories="optimization"><span class="iconfont-archer">&#xe60a;</span>optimization</span>
     
-        <span class="sidebar-category-name" data-categories="varnish"><span class="iconfont-archer">&#xe60a;</span>varnish</span>
-    
         <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
+    
+        <span class="sidebar-category-name" data-categories="varnish"><span class="iconfont-archer">&#xe60a;</span>varnish</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
