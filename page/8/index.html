@@ -369,6 +369,64 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2017/12/17/locust/" >
+            
+                <span>Locust 性能测试框架</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="Locust"><a href="#Locust" class="headerlink" title="Locust"></a>Locust</h2><p>Locust是一个可扩展，分布式，性能测试的由python编写框架，非常容易使用，也非常好学。它的主要思想就是模拟一群用户访问你的网站，每个用户的行为由你编写的python代码定义，同时可以从web界面中实时观察到用户的行为。<br>Locust完全是事件驱动，因此在单台机器上能够支持上千的并发访问，具体取决与你的机器性能，Locust并不支持回调，而是使用gevent，而gevent是基于协程，可以用同步的方式来编写异步执行的代码。</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/12/17</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "python">python</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2017/12/16/jinja2/" >
+            
+                <span>Flask框架jianja2模板引擎之上下文环境</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="上下文环境"><a href="#上下文环境" class="headerlink" title="上下文环境"></a>上下文环境</h2><p>Flask每个请求都是有生命周期，作为请求的渲染模板，处理渲染过程也都是在请求的生命周期内，所以Flask应用中的模板可以使用到请求上下文中的环境变量。</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/12/16</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "python">python</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2017/12/06/jinja/" >
             
                 <span>Python模版渲染引擎Jinja2</span>
@@ -595,73 +653,10 @@ height:50vh;
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/11/11/etcd/" >
-            
-                <span>Etcd 高可用的键值对数据库</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="Etcd"><a href="#Etcd" class="headerlink" title="Etcd"></a>Etcd</h2><p>Etcd是CoreOS团队发起的一个分布式键值对数据库，可以应用于分布式系统中的配置信息管理和服务发现，也是在k8s集群中被使用的项目，etcd专门为集群环境设计，可以很好的实现数据一致性，提供集群节点管理和服务发现，目前在github.com/coreos/etcd进行维护。etcd重点考虑了一下四个要素：</p>
-<ul>
-<li>简单：支持REST风格的HTTP+JSON API</li>
-<li>安全：支持HTTPS方法的访问</li>
-<li>快速：支持并发每秒一千次的写操作</li>
-<li>可靠：支持分布式结构，基于Raft算法实现一致性
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/11/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "etcd">etcd</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/11/08/consul/" >
-            
-                <span>Consul 微服务之服务发现和配置共享</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="Consul"><a href="#Consul" class="headerlink" title="Consul"></a>Consul</h2><p>微服务的框架体系中，服务发现是不能不提的一个模块，传统的服务框架必须知道服务的网络位置，而这些位置信息都是通过配置文件完成，当服务大量扩张的时候，这管理规模别提多么庞大，更别提现在的docker容器化的大量部署的时代，如何可以动态的让程序间明白我所需要的服务在哪？是微服务时代必须解决的事情，而随着微服务越来越流行，大量涌现的服务发现框架，我们比较常见的用：zookeeper,eureka,etcd,consul……</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/11/08</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "consul">consul</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/7/">&amp;#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/9/">NEXT &amp;#62;</a>
+        <a class="extend prev" rel="prev" href="/page/7/">&amp;#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/9/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -3967,9 +3962,31 @@ height:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 179
+        Total : 181
         </div>
         <!-- search  -->
         
@@ -3982,6 +3999,16 @@ height:50vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2020/07/12/jvm-1/" >JVM GC and GC tuning(公开课笔记)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2020/06/08/hadoop-mr/" >hadoop-mr</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -4928,11 +4955,11 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
     
+        <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
+    
         <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
         <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
-    
-        <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
     
         <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
     
@@ -4940,11 +4967,9 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="Kubernetes"><span class="iconfont-archer">&#xe606;</span>Kubernetes</span>
     
-        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
-    
-        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
-    
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
+    
+        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
         <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
     
@@ -4958,11 +4983,13 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="nfs"><span class="iconfont-archer">&#xe606;</span>nfs</span>
     
-        <span class="sidebar-tag-name" data-tags="mogilefs"><span class="iconfont-archer">&#xe606;</span>mogilefs</span>
-    
         <span class="sidebar-tag-name" data-tags="upgrade"><span class="iconfont-archer">&#xe606;</span>upgrade</span>
     
+        <span class="sidebar-tag-name" data-tags="mogilefs"><span class="iconfont-archer">&#xe606;</span>mogilefs</span>
+    
         <span class="sidebar-tag-name" data-tags="openresty"><span class="iconfont-archer">&#xe606;</span>openresty</span>
+    
+        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
     
         <span class="sidebar-tag-name" data-tags="puppet"><span class="iconfont-archer">&#xe606;</span>puppet</span>
     
@@ -4986,11 +5013,11 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
     
+        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
+    
         <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
     
         <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
-    
-        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
     
         <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
     
@@ -4998,17 +5025,19 @@ height:50vh;
     
         <span class="sidebar-tag-name" data-tags="iscsi"><span class="iconfont-archer">&#xe606;</span>iscsi</span>
     
+        <span class="sidebar-tag-name" data-tags="JAVA"><span class="iconfont-archer">&#xe606;</span>JAVA</span>
+    
         <span class="sidebar-tag-name" data-tags="keepalived"><span class="iconfont-archer">&#xe606;</span>keepalived</span>
     
         <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
     
-        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
-    
         <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
-        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
-    
         <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
+    
+        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
+    
+        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
     
         <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
     
@@ -5057,9 +5086,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
-    
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="storage"><span class="iconfont-archer">&#xe60a;</span>storage</span>
     
@@ -5071,11 +5100,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Shell"><span class="iconfont-archer">&#xe60a;</span>Shell</span>
     
+        <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
+    
         <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
     
         <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
-    
-        <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
     
         <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
     
@@ -5101,11 +5130,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Django"><span class="iconfont-archer">&#xe60a;</span>Django</span>
     
+        <span class="sidebar-category-name" data-categories="JAVA"><span class="iconfont-archer">&#xe60a;</span>JAVA</span>
+    
         <span class="sidebar-category-name" data-categories="optimization"><span class="iconfont-archer">&#xe60a;</span>optimization</span>
     
-        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
-    
         <span class="sidebar-category-name" data-categories="varnish"><span class="iconfont-archer">&#xe60a;</span>varnish</span>
+    
+        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

@@ -356,6 +356,64 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2018/06/25/apscheduler/" >
+            
+                <span>定时任务框架APScheduler</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="APScheduler"><a href="#APScheduler" class="headerlink" title="APScheduler"></a>APScheduler</h2><p>最近想要建立一个crontab集中的任务管理中心，调用saltstack来集中管理IT系统，有两个方案，一个是apscheduler，一个celery，可是发现celery的crontab的功能存在bug，计划任务不能很好的执行，所以计划选择apscheduler来作为框架来完成。</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/25</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "python">python</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/06/18/python-meta/" >
+            
+                <span>python 元编程</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="类的创建与销毁"><a href="#类的创建与销毁" class="headerlink" title="类的创建与销毁"></a>类的创建与销毁</h2><p><code>__new__</code>创建类对象实例，<code>__init__</code>初始化类对象实例</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/18</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "python">python</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2018/06/17/python-descriptor/" >
             
                 <span>python 描述器</span>
@@ -604,73 +662,10 @@
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/05/15/executor/" >
-            
-                <span>Python 并发编程之线程池/进程池</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>python标准库为我们提供了threading和multiprocessing模块编写对线程多进程，但是频繁的创建/销毁线程或进程是非常消耗资源的，这时候我们就需要编写线程池和进程池，以空间来换取时间。自从python3.2后标准库为我们提供了concurrent.future模块，它提供了ThreadPoolExecutor和ProcessPoolExecutor两个类，实现了对threading和multiprocessing的进一步抽象。</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/15</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "python">python</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/05/12/socketserver/" >
-            
-                <span>python 网络服务器框架socketserver</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="socketserver"><a href="#socketserver" class="headerlink" title="socketserver"></a>socketserver</h2><p>socketserver模块有四种基本的服务器类型:</p>
-<ul>
-<li>socketserver.TCPServer(server_address,RequestHandlerClass,bind_and_activate=True)<br>这使用了网络TCP协议，它提供了客户机和服务器之间的连续数据流。如果bind_and_activate是真的，构造函数会自动尝试调用server_bind()和server_activate()。其他参数传递给BaseServer基类。</li>
-<li>class socketserver.UDPServer(server_address, RequestHandlerClass, bind_and_activate=True)<br>它使用网络UDP协议，它是在传输过程中可能出现故障或丢失信息的离散信息包。参数与TCPServer相同。</li>
-<li>class socketserver.UnixStreamServer(server_address, RequestHandlerClass, bind_and_activate=True)¶</li>
-<li>class socketserver.UnixDatagramServer(server_address, RequestHandlerClass, bind_and_activate=True)¶
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/12</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "python">python</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/page/3/">&amp;#60; PREV</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/18/">18</a><a class="extend next" rel="next" href="/archives/page/5/">NEXT &amp;#62;</a>
+        <a class="extend prev" rel="prev" href="/archives/page/3/">&amp;#60; PREV</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/19/">19</a><a class="extend next" rel="next" href="/archives/page/5/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -3880,9 +3875,31 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 179
+        Total : 181
         </div>
         <!-- search  -->
         
@@ -3895,6 +3912,16 @@
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2020/07/12/jvm-1/" >JVM GC and GC tuning(公开课笔记)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2020/06/08/hadoop-mr/" >hadoop-mr</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -4841,11 +4868,11 @@
     
         <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
     
+        <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
+    
         <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
         <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
-    
-        <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
     
         <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
     
@@ -4853,11 +4880,9 @@
     
         <span class="sidebar-tag-name" data-tags="Kubernetes"><span class="iconfont-archer">&#xe606;</span>Kubernetes</span>
     
-        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
-    
-        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
-    
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
+    
+        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
         <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
     
@@ -4871,11 +4896,13 @@
     
         <span class="sidebar-tag-name" data-tags="nfs"><span class="iconfont-archer">&#xe606;</span>nfs</span>
     
-        <span class="sidebar-tag-name" data-tags="mogilefs"><span class="iconfont-archer">&#xe606;</span>mogilefs</span>
-    
         <span class="sidebar-tag-name" data-tags="upgrade"><span class="iconfont-archer">&#xe606;</span>upgrade</span>
     
+        <span class="sidebar-tag-name" data-tags="mogilefs"><span class="iconfont-archer">&#xe606;</span>mogilefs</span>
+    
         <span class="sidebar-tag-name" data-tags="openresty"><span class="iconfont-archer">&#xe606;</span>openresty</span>
+    
+        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
     
         <span class="sidebar-tag-name" data-tags="puppet"><span class="iconfont-archer">&#xe606;</span>puppet</span>
     
@@ -4899,11 +4926,11 @@
     
         <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
     
+        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
+    
         <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
     
         <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
-    
-        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
     
         <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
     
@@ -4911,17 +4938,19 @@
     
         <span class="sidebar-tag-name" data-tags="iscsi"><span class="iconfont-archer">&#xe606;</span>iscsi</span>
     
+        <span class="sidebar-tag-name" data-tags="JAVA"><span class="iconfont-archer">&#xe606;</span>JAVA</span>
+    
         <span class="sidebar-tag-name" data-tags="keepalived"><span class="iconfont-archer">&#xe606;</span>keepalived</span>
     
         <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
     
-        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
-    
         <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
-        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
-    
         <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
+    
+        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
+    
+        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
     
         <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
     
@@ -4970,9 +4999,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
-    
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="storage"><span class="iconfont-archer">&#xe60a;</span>storage</span>
     
@@ -4984,11 +5013,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Shell"><span class="iconfont-archer">&#xe60a;</span>Shell</span>
     
+        <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
+    
         <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
     
         <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
-    
-        <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
     
         <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
     
@@ -5014,11 +5043,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Django"><span class="iconfont-archer">&#xe60a;</span>Django</span>
     
+        <span class="sidebar-category-name" data-categories="JAVA"><span class="iconfont-archer">&#xe60a;</span>JAVA</span>
+    
         <span class="sidebar-category-name" data-categories="optimization"><span class="iconfont-archer">&#xe60a;</span>optimization</span>
     
-        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
-    
         <span class="sidebar-category-name" data-categories="varnish"><span class="iconfont-archer">&#xe60a;</span>varnish</span>
+    
+        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

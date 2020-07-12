@@ -356,6 +356,72 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/07/12/jvm-1/" >
+            
+                <span>JVM GC and GC tuning(公开课笔记)</span>
+        </a>
+        <div class="abstract-content">
+            <h2 id="什么是垃圾"><a href="#什么是垃圾" class="headerlink" title="什么是垃圾"></a>什么是垃圾</h2><ol>
+<li>没有任何引用指向的一个对象或多个对象（循环引用）</li>
+<li>申请、释放内存</li>
+</ol>
+<ul>
+<li>C语言: malloc，free</li>
+<li>C++: new, delete</li>
+<li>Java: new, 自动释放</li>
+</ul>
+<ol start="3">
+<li>自动回收与手动回收缺点</li>
+</ol>
+<ul>
+<li>自动回收: 编程简单，系统不容易出错</li>
+<li>手动回收: 可能出现忘记回收（内存泄漏），多次回收（回收有用的的数据）
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/07/12</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "JAVA">JAVA</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/06/08/hadoop-mr/" >
+            
+                <span>hadoop-mr</span>
+        </a>
+        <div class="abstract-content">
+            
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/06/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/06/08/hadoop/" >
             
                 <span>Hadoop 2.6.5 安装</span>
@@ -583,71 +649,10 @@
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/09/03/openresty-3/" >
-            
-                <span>OpenResty 灰度之路探索</span>
-        </a>
-        <div class="abstract-content">
-            <h2 id="灰度发布"><a href="#灰度发布" class="headerlink" title="灰度发布"></a>灰度发布</h2><p>灰度发布在新版本上线的时候，只对线上一小部分用户开放新版本权限，大部分用户访问旧的版本，等新版本持续测试稳定后，将全部用户引入新版本。</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/09/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "openresty">openresty</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/09/03/openresty-2/" >
-            
-                <span>OpenResty IP访问控制</span>
-        </a>
-        <div class="abstract-content">
-            <ul>
-<li>创建项目</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">mkdir ipban</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">cd ipban</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">mkdir config logs</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">cd config</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">touch nginx.conf</span></pre></td></tr></table></figure>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/09/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "openresty">openresty</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/18/">18</a><a class="extend next" rel="next" href="/archives/page/2/">NEXT &amp;#62;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/19/">19</a><a class="extend next" rel="next" href="/archives/page/2/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -3857,9 +3862,31 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 179
+        Total : 181
         </div>
         <!-- search  -->
         
@@ -3872,6 +3899,16 @@
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2020/07/12/jvm-1/" >JVM GC and GC tuning(公开课笔记)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2020/06/08/hadoop-mr/" >hadoop-mr</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -4818,11 +4855,11 @@
     
         <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
     
+        <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
+    
         <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
         <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
-    
-        <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
     
         <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
     
@@ -4830,11 +4867,9 @@
     
         <span class="sidebar-tag-name" data-tags="Kubernetes"><span class="iconfont-archer">&#xe606;</span>Kubernetes</span>
     
-        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
-    
-        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
-    
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
+    
+        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
         <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
     
@@ -4848,11 +4883,13 @@
     
         <span class="sidebar-tag-name" data-tags="nfs"><span class="iconfont-archer">&#xe606;</span>nfs</span>
     
-        <span class="sidebar-tag-name" data-tags="mogilefs"><span class="iconfont-archer">&#xe606;</span>mogilefs</span>
-    
         <span class="sidebar-tag-name" data-tags="upgrade"><span class="iconfont-archer">&#xe606;</span>upgrade</span>
     
+        <span class="sidebar-tag-name" data-tags="mogilefs"><span class="iconfont-archer">&#xe606;</span>mogilefs</span>
+    
         <span class="sidebar-tag-name" data-tags="openresty"><span class="iconfont-archer">&#xe606;</span>openresty</span>
+    
+        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
     
         <span class="sidebar-tag-name" data-tags="puppet"><span class="iconfont-archer">&#xe606;</span>puppet</span>
     
@@ -4876,11 +4913,11 @@
     
         <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
     
+        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
+    
         <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
     
         <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
-    
-        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
     
         <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
     
@@ -4888,17 +4925,19 @@
     
         <span class="sidebar-tag-name" data-tags="iscsi"><span class="iconfont-archer">&#xe606;</span>iscsi</span>
     
+        <span class="sidebar-tag-name" data-tags="JAVA"><span class="iconfont-archer">&#xe606;</span>JAVA</span>
+    
         <span class="sidebar-tag-name" data-tags="keepalived"><span class="iconfont-archer">&#xe606;</span>keepalived</span>
     
         <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
     
-        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
-    
         <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
-        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
-    
         <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
+    
+        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
+    
+        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
     
         <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
     
@@ -4947,9 +4986,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
-    
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="storage"><span class="iconfont-archer">&#xe60a;</span>storage</span>
     
@@ -4961,11 +5000,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Shell"><span class="iconfont-archer">&#xe60a;</span>Shell</span>
     
+        <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
+    
         <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
     
         <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
-    
-        <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
     
         <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
     
@@ -4991,11 +5030,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Django"><span class="iconfont-archer">&#xe60a;</span>Django</span>
     
+        <span class="sidebar-category-name" data-categories="JAVA"><span class="iconfont-archer">&#xe60a;</span>JAVA</span>
+    
         <span class="sidebar-category-name" data-categories="optimization"><span class="iconfont-archer">&#xe60a;</span>optimization</span>
     
-        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
-    
         <span class="sidebar-category-name" data-categories="varnish"><span class="iconfont-archer">&#xe60a;</span>varnish</span>
+    
+        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
