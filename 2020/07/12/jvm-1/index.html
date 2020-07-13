@@ -282,7 +282,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">2.7k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">3.7k</span>阅读时长: <span class="post-count reading-time">13 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -660,7 +660,52 @@ height:50vh;
 <li>GCTimeRatio 设置GC时间占用程序运行时间的百分比</li>
 <li>-XX:MaxGCPauseMillis 停顿时间，是一个建议时间，GC会尝试用各种手段达到这个时间，比如减少年轻代</li>
 </ol>
-<h2 id="G1常用参数"><a href="#G1常用参数" class="headerlink" title="G1常用参数"></a>G1常用参数</h2>
+<h2 id="G1常用参数"><a href="#G1常用参数" class="headerlink" title="G1常用参数"></a>G1常用参数</h2><ol>
+<li>-XX:+UseG1GC</li>
+<li>-XX:MaxGCPauseMillis 建议值，G1会尝试调整young区的块数来达到这个值</li>
+<li>-XX:GCPauseIntervalMillis GC的间隔时间</li>
+<li>-XX:G1HeapRegionSize 每个分区块大小，建议逐渐增大该值，1 2 4 8 16 32。随着size增加，region越不容易满，垃圾存活的时间更长，GC间隔更长，但每次GC的时间也会更长。ZGC做了改进（动态区块大小，根据之前几次垃圾回收时间，安排region大小）</li>
+<li>-XX:G1NewSizePercent 新生代最小比例，默认为5%</li>
+<li>-XX:G1MaxNewSizePercent 新生代最大比例，默认为60%</li>
+<li>-XX:GCTimeRatio GC时间建议比例，G1会根据这个值调整堆空间</li>
+<li>-XX:ConcGCThreads 线程数量</li>
+<li>-XX:InitiatingHeapOccupancyPercent 启动G1的堆空间占用比例</li>
+</ol>
+<h2 id="G1详解"><a href="#G1详解" class="headerlink" title="G1详解"></a>G1详解</h2><p><img src="/image/g1.png" alt=""></p>
+<ol>
+<li>G1将内存划分为多个（默认2000多个）大小相同的内存块称为Region，每个Region是逻辑连续的一段内存，在被使用时都充当一种角色。</li>
+<li>Region可充当old、survivor、eden、humongos，当新建的对象超过Region的50%，直接在新的一个或多个连续Region中分配，并标记为humongos区，某Region的角色不是固定的eden或old，随时会变化</li>
+<li>当垃圾回收时，优先收集存活对象最少的，也就是垃圾最多的Region，所以叫garbage first</li>
+<li>特点：</li>
+</ol>
+<ul>
+<li>并发收集：与cms差不多，采用三色标记算法</li>
+<li>压缩空闲空间，不会延长GC的暂停时间</li>
+<li>每次收集指定的几个Region，因此更容易预测GC暂停时间</li>
+<li>适用于不需要实现很高吞吐量的场景，使用硬件弥补吞吐量的问题</li>
+</ul>
+<ol start="5">
+<li>当YGC时，只需要先找到Young区中的所以root对象，在顺着这些root对象继续找，找到的所有对象就是可达对象，剩余对象就可以全部清理，但有一种情况，如果老年代中的根对象A，有成员变量，指向了年轻代中的一个对象B，此时B对象无法被Young区的根对象找到，为了将B也正常标记为可达，就需要遍历所有Old区中的对象，看是否有指向B的引用，为了避免这种情况的产生，引入RSet</li>
+<li>RSet: 是一种用于记录从非收集区域收集区域的指针集合的抽象数据结构，Card Table是G1和CMS对Rset的一种实现</li>
+<li>Card Table: 将堆空间划分为一系列2的n次幂大小的空间，称为card（卡页），对于HotSpot JVM，卡页大小为512字节，将所有卡页的起始地址左移9位，得到的数值，作为一个byte[]的索引，这个byte[]就是所谓的Card Table（卡表），也就是根据byte[]的索引就能找到指定的卡页，同时该byte[]中的元素表，代表对应的卡页的状态</li>
+<li>CSet: Collection Set，表示本次要被收集的Card的集合</li>
+<li>CMS处理跨代引用时对Card Table的使用</li>
+</ol>
+<ul>
+<li>这个Card Table的索引，包含所有老年代的卡页</li>
+<li>老年代中的某个卡页中的对象，指向了年轻代中的对象，就将以该卡页的地址作为索引的byte[]处元素值，设置为0表示dirty</li>
+<li>YGC时，只需要顺着Young区所有Root对象进行扫描，并加上顺着dirty的card中的引用进行扫描即可找到所有Young区的可达对象</li>
+</ul>
+<ol start="10">
+<li>G1处理跨代(Region)引用时对Card Table的使用</li>
+</ol>
+<ul>
+<li>在上面介绍的Card Table使用方法的基础上，加入了一个存放于当前Region的Card Table</li>
+<li>这个Card Table包含所有指向存放它的Region的其他Region中的卡页</li>
+<li>这样当想扫描Regin时，对于跨代的引用，只需要扫描Region中的RSet所代表的卡页中，是否有可达对象指向自身即可</li>
+<li>RSet会需要堆的10%-20%的内存用来维持垃圾收集器工作</li>
+</ul>
+
     </article>
     <!-- license  -->
     
@@ -668,7 +713,7 @@ height:50vh;
             <p>原文作者：<a href="http://jusene.github.io">Zhang Jusene</a>
             <p>原文链接：<a href="http://jusene.github.io/2020/07/12/jvm-1/">http://jusene.github.io/2020/07/12/jvm-1/</a>
             <p>发表日期：<a href="http://jusene.github.io/2020/07/12/jvm-1/">July 12th 2020, 1:36:45 pm</a>
-            <p>更新日期：<a href="http://jusene.github.io/2020/07/12/jvm-1/">July 12th 2020, 11:35:33 pm</a>
+            <p>更新日期：<a href="http://jusene.github.io/2020/07/12/jvm-1/">July 14th 2020, 12:10:58 am</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -808,7 +853,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是垃圾"><span class="toc-number">1.</span> <span class="toc-text">什么是垃圾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定位垃圾"><span class="toc-number">2.</span> <span class="toc-text">定位垃圾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#垃圾回收算法"><span class="toc-number">3.</span> <span class="toc-text">垃圾回收算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM-分代算法"><span class="toc-number">4.</span> <span class="toc-text">JVM 分代算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新生代"><span class="toc-number">5.</span> <span class="toc-text">新生代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#老年代"><span class="toc-number">6.</span> <span class="toc-text">老年代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC-Tuning-Generation"><span class="toc-number">7.</span> <span class="toc-text">GC Tuning(Generation)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线上分配、TLAB"><span class="toc-number">8.</span> <span class="toc-text">线上分配、TLAB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的垃圾回收器"><span class="toc-number">9.</span> <span class="toc-text">常见的垃圾回收器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC常见参数"><span class="toc-number">10.</span> <span class="toc-text">GC常见参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC同用参数"><span class="toc-number">11.</span> <span class="toc-text">GC同用参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parallel常用参数"><span class="toc-number">12.</span> <span class="toc-text">Parallel常用参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CMS-常用参数"><span class="toc-number">13.</span> <span class="toc-text">CMS 常用参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G1常用参数"><span class="toc-number">14.</span> <span class="toc-text">G1常用参数</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是垃圾"><span class="toc-number">1.</span> <span class="toc-text">什么是垃圾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定位垃圾"><span class="toc-number">2.</span> <span class="toc-text">定位垃圾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#垃圾回收算法"><span class="toc-number">3.</span> <span class="toc-text">垃圾回收算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM-分代算法"><span class="toc-number">4.</span> <span class="toc-text">JVM 分代算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新生代"><span class="toc-number">5.</span> <span class="toc-text">新生代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#老年代"><span class="toc-number">6.</span> <span class="toc-text">老年代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC-Tuning-Generation"><span class="toc-number">7.</span> <span class="toc-text">GC Tuning(Generation)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线上分配、TLAB"><span class="toc-number">8.</span> <span class="toc-text">线上分配、TLAB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的垃圾回收器"><span class="toc-number">9.</span> <span class="toc-text">常见的垃圾回收器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC常见参数"><span class="toc-number">10.</span> <span class="toc-text">GC常见参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC同用参数"><span class="toc-number">11.</span> <span class="toc-text">GC同用参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parallel常用参数"><span class="toc-number">12.</span> <span class="toc-text">Parallel常用参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CMS-常用参数"><span class="toc-number">13.</span> <span class="toc-text">CMS 常用参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G1常用参数"><span class="toc-number">14.</span> <span class="toc-text">G1常用参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G1详解"><span class="toc-number">15.</span> <span class="toc-text">G1详解</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -821,12 +866,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
     
     
     
@@ -4935,21 +4974,21 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="ssh"><span class="iconfont-archer">&#xe606;</span>ssh</span>
     
-        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
-    
         <span class="sidebar-tag-name" data-tags="ELK"><span class="iconfont-archer">&#xe606;</span>ELK</span>
     
-        <span class="sidebar-tag-name" data-tags="bash"><span class="iconfont-archer">&#xe606;</span>bash</span>
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
     
         <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
+    
+        <span class="sidebar-tag-name" data-tags="bash"><span class="iconfont-archer">&#xe606;</span>bash</span>
     
         <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
         <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
     
-        <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
-    
         <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
+    
+        <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
@@ -4957,9 +4996,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
-        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
-    
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
+    
+        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
     
         <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
     
@@ -4975,17 +5014,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="mogilefs"><span class="iconfont-archer">&#xe606;</span>mogilefs</span>
     
-        <span class="sidebar-tag-name" data-tags="upgrade"><span class="iconfont-archer">&#xe606;</span>upgrade</span>
-    
         <span class="sidebar-tag-name" data-tags="openresty"><span class="iconfont-archer">&#xe606;</span>openresty</span>
+    
+        <span class="sidebar-tag-name" data-tags="upgrade"><span class="iconfont-archer">&#xe606;</span>upgrade</span>
     
         <span class="sidebar-tag-name" data-tags="puppet"><span class="iconfont-archer">&#xe606;</span>puppet</span>
     
         <span class="sidebar-tag-name" data-tags="rabbitmq"><span class="iconfont-archer">&#xe606;</span>rabbitmq</span>
     
-        <span class="sidebar-tag-name" data-tags="rsync"><span class="iconfont-archer">&#xe606;</span>rsync</span>
-    
         <span class="sidebar-tag-name" data-tags="saltstack"><span class="iconfont-archer">&#xe606;</span>saltstack</span>
+    
+        <span class="sidebar-tag-name" data-tags="rsync"><span class="iconfont-archer">&#xe606;</span>rsync</span>
     
         <span class="sidebar-tag-name" data-tags="screen"><span class="iconfont-archer">&#xe606;</span>screen</span>
     
@@ -4995,17 +5034,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="tcpdump"><span class="iconfont-archer">&#xe606;</span>tcpdump</span>
     
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
         <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
     
-        <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
-        <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
+        <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
     
         <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
     
         <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
+    
+        <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
     
         <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
     
@@ -5021,15 +5060,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
     
-        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
-    
         <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
         <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
     
-        <span class="sidebar-tag-name" data-tags="RPM"><span class="iconfont-archer">&#xe606;</span>RPM</span>
+        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
     
         <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="RPM"><span class="iconfont-archer">&#xe606;</span>RPM</span>
     
         <span class="sidebar-tag-name" data-tags="supervisord"><span class="iconfont-archer">&#xe606;</span>supervisord</span>
     
@@ -5080,9 +5119,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="storage"><span class="iconfont-archer">&#xe60a;</span>storage</span>
     
-        <span class="sidebar-category-name" data-categories="nginx"><span class="iconfont-archer">&#xe60a;</span>nginx</span>
-    
         <span class="sidebar-category-name" data-categories="Nosql"><span class="iconfont-archer">&#xe60a;</span>Nosql</span>
+    
+        <span class="sidebar-category-name" data-categories="nginx"><span class="iconfont-archer">&#xe60a;</span>nginx</span>
     
         <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
     
@@ -5092,9 +5131,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
     
-        <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
-    
         <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
+    
+        <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
     
         <span class="sidebar-category-name" data-categories="Java"><span class="iconfont-archer">&#xe60a;</span>Java</span>
     
