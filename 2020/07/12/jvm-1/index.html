@@ -282,7 +282,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">3.8k</span>阅读时长: <span class="post-count reading-time">13 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">4.4k</span>阅读时长: <span class="post-count reading-time">16 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -725,6 +725,138 @@ height:50vh;
 </li>
 <li>漏标</li>
 </ul>
+<ol>
+<li>工作线程将B到D的引用切断，由A中的成员引用D</li>
+<li>此时由于垃圾回收线程已经扫描过A，不会再对其成员引用的D对象进行标记，而扫描B的属性时，又无法通过该属性的引用找到D</li>
+<li>此时D无法正确被标记为可达对象</li>
+</ol>
+<p><img src="/image/gc2.png" alt=""></p>
+<p><img src="/image/gc3.png" alt=""><br>12. 漏标解决方案</p>
+<ul>
+<li>跟踪A指向D的增加(incremental update): CMS引入了另一个数据结构mod union table，这里一个bit对应一个Card，young gc在将Card Table设置为clean的时候会将对应的mod union table置为dirty，重新标记的时候会将Card Table或者mod union table是dirty的Card也作为root去扫描</li>
+<li>跟踪B指向D的消失(SATB，snapshot at the beginning)：将B到D的引用放入一个特殊的栈中，重新标记时，会继续对栈中的对象进行标记</li>
+</ul>
+<ol start="13">
+<li><p>G1的新生代大小默认占堆的5%-60%，收集过程目标时间默认为200ms，不要手工指定G1的年轻代和老年代的大小，由于G1会造成STW，所以G1会根据收集过程目标时间，自动优化新生代大小，比如本次YGC较慢，下一次就会将年轻代比例调小</p>
+</li>
+<li><p>G1的GC模式</p>
+</li>
+</ol>
+<ul>
+<li><p>young gc：stw</p>
+</li>
+<li><ul>
+<li>eden region被耗尽无法申请内存时触发</li>
+</ul>
+</li>
+<li><ul>
+<li>活跃对象会被拷贝到survivor region或者晋升到old region中</li>
+</ul>
+</li>
+<li><p>mixed gc</p>
+</li>
+<li><ul>
+<li>由-XX:InitiatingHeapOccupancyPercent参数设定，默认45%，即当老年代占整个堆的45%以上时触发mixed gc</li>
+</ul>
+</li>
+<li><ul>
+<li>过程相当于完整的CMS</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>初始标记</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>并发标记</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>最终标记</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>筛选回收：与CMS不同</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>会多了筛选的步骤，优先选择垃圾最多的Region进行回收</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>会将Region中存活的对象复制到空的Region中，并清理旧的Region空间</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>由于涉及存货对象的移动，因此无法与用户线程并行执行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>full gc</p>
+</li>
+<li><ul>
+<li>对象内存分配速度过快，mixed gc来不及回收，导致老年代被填满时触发</li>
+</ul>
+</li>
+<li><ul>
+<li>G1的full gc，在java10以前为单线程的Serial Old，java10以后才是并行回收，效率非常低</li>
+</ul>
+</li>
+<li><ul>
+<li>应尽量避免full gc</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>扩内存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>提高cpu性能(加快回收速度)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>降低mixed gc的阈值，让mixed gc提早发生</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
     </article>
     <!-- license  -->
@@ -733,7 +865,7 @@ height:50vh;
             <p>原文作者：<a href="http://jusene.github.io">Zhang Jusene</a>
             <p>原文链接：<a href="http://jusene.github.io/2020/07/12/jvm-1/">http://jusene.github.io/2020/07/12/jvm-1/</a>
             <p>发表日期：<a href="http://jusene.github.io/2020/07/12/jvm-1/">July 12th 2020, 1:36:45 pm</a>
-            <p>更新日期：<a href="http://jusene.github.io/2020/07/12/jvm-1/">July 14th 2020, 12:15:30 am</a>
+            <p>更新日期：<a href="http://jusene.github.io/2020/07/12/jvm-1/">July 14th 2020, 9:43:34 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -886,12 +1018,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
     
     
     
@@ -5002,21 +5128,21 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="drbd"><span class="iconfont-archer">&#xe606;</span>drbd</span>
     
-        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
-    
         <span class="sidebar-tag-name" data-tags="ssh"><span class="iconfont-archer">&#xe606;</span>ssh</span>
     
-        <span class="sidebar-tag-name" data-tags="ELK"><span class="iconfont-archer">&#xe606;</span>ELK</span>
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
     
-        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
+        <span class="sidebar-tag-name" data-tags="ELK"><span class="iconfont-archer">&#xe606;</span>ELK</span>
     
         <span class="sidebar-tag-name" data-tags="bash"><span class="iconfont-archer">&#xe606;</span>bash</span>
     
         <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
-        <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
+        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
     
         <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
+    
+        <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
     
         <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
     
@@ -5026,8 +5152,6 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
-        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
-    
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
     
         <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
@@ -5035,6 +5159,8 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="lvs"><span class="iconfont-archer">&#xe606;</span>lvs</span>
     
         <span class="sidebar-tag-name" data-tags="mongodb"><span class="iconfont-archer">&#xe606;</span>mongodb</span>
+    
+        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
@@ -5044,11 +5170,41 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="mogilefs"><span class="iconfont-archer">&#xe606;</span>mogilefs</span>
     
-        <span class="sidebar-tag-name" data-tags="upgrade"><span class="iconfont-archer">&#xe606;</span>upgrade</span>
-    
         <span class="sidebar-tag-name" data-tags="openresty"><span class="iconfont-archer">&#xe606;</span>openresty</span>
     
+        <span class="sidebar-tag-name" data-tags="upgrade"><span class="iconfont-archer">&#xe606;</span>upgrade</span>
+    
         <span class="sidebar-tag-name" data-tags="puppet"><span class="iconfont-archer">&#xe606;</span>puppet</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
+    
+        <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
+    
+        <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
+    
+        <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
+    
+        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
+    
+        <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
+    
+        <span class="sidebar-tag-name" data-tags="haproxy"><span class="iconfont-archer">&#xe606;</span>haproxy</span>
+    
+        <span class="sidebar-tag-name" data-tags="iscsi"><span class="iconfont-archer">&#xe606;</span>iscsi</span>
+    
+        <span class="sidebar-tag-name" data-tags="keepalived"><span class="iconfont-archer">&#xe606;</span>keepalived</span>
+    
+        <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
+    
+        <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
+    
+        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
+    
+        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
+    
+        <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
     
         <span class="sidebar-tag-name" data-tags="rabbitmq"><span class="iconfont-archer">&#xe606;</span>rabbitmq</span>
     
@@ -5064,37 +5220,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="tcpdump"><span class="iconfont-archer">&#xe606;</span>tcpdump</span>
     
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
-        <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
-    
-        <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
-    
-        <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
-    
-        <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
-    
-        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
-    
-        <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
-    
-        <span class="sidebar-tag-name" data-tags="haproxy"><span class="iconfont-archer">&#xe606;</span>haproxy</span>
-    
-        <span class="sidebar-tag-name" data-tags="iscsi"><span class="iconfont-archer">&#xe606;</span>iscsi</span>
+        <span class="sidebar-tag-name" data-tags="fastdfs"><span class="iconfont-archer">&#xe606;</span>fastdfs</span>
     
         <span class="sidebar-tag-name" data-tags="JAVA"><span class="iconfont-archer">&#xe606;</span>JAVA</span>
-    
-        <span class="sidebar-tag-name" data-tags="keepalived"><span class="iconfont-archer">&#xe606;</span>keepalived</span>
-    
-        <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
-    
-        <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
-    
-        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
-    
-        <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
-    
-        <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
     
         <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
     
@@ -5103,8 +5231,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="supervisord"><span class="iconfont-archer">&#xe606;</span>supervisord</span>
     
         <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
-    
-        <span class="sidebar-tag-name" data-tags="fastdfs"><span class="iconfont-archer">&#xe606;</span>fastdfs</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -5143,9 +5269,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
-    
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
     
         <span class="sidebar-category-name" data-categories="storage"><span class="iconfont-archer">&#xe60a;</span>storage</span>
     
@@ -5159,9 +5285,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
     
-        <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
-    
         <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
+    
+        <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
     
         <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
     
@@ -5179,21 +5305,21 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="puppet"><span class="iconfont-archer">&#xe60a;</span>puppet</span>
     
-        <span class="sidebar-category-name" data-categories="rabbitmq"><span class="iconfont-archer">&#xe60a;</span>rabbitmq</span>
-    
-        <span class="sidebar-category-name" data-categories="saltstack"><span class="iconfont-archer">&#xe60a;</span>saltstack</span>
-    
         <span class="sidebar-category-name" data-categories="ansible"><span class="iconfont-archer">&#xe60a;</span>ansible</span>
     
         <span class="sidebar-category-name" data-categories="Django"><span class="iconfont-archer">&#xe60a;</span>Django</span>
     
-        <span class="sidebar-category-name" data-categories="JAVA"><span class="iconfont-archer">&#xe60a;</span>JAVA</span>
-    
         <span class="sidebar-category-name" data-categories="optimization"><span class="iconfont-archer">&#xe60a;</span>optimization</span>
     
-        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
+        <span class="sidebar-category-name" data-categories="rabbitmq"><span class="iconfont-archer">&#xe60a;</span>rabbitmq</span>
+    
+        <span class="sidebar-category-name" data-categories="saltstack"><span class="iconfont-archer">&#xe60a;</span>saltstack</span>
+    
+        <span class="sidebar-category-name" data-categories="JAVA"><span class="iconfont-archer">&#xe60a;</span>JAVA</span>
     
         <span class="sidebar-category-name" data-categories="varnish"><span class="iconfont-archer">&#xe60a;</span>varnish</span>
+    
+        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
