@@ -356,6 +356,36 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2019/10/10/k8s-5/" >
+            
+                <span>Kubernetes kube-proxy开启ipvs</span>
+        </a>
+        <div class="abstract-content">
+            <p>kube-proxy默认使用iptables模式，通过各个node节点上的iptables规则实现service的负载均衡，service ip本身是不存在的，其利用iptables规则来代理至实际pod，但是随着service数量增大，iptables模式由于线性查找，性能会大福降低。</p>
+<p>kube-proxy引入了IPVS模式，IPVS模式与iptables同样基于Netfilter,但是采用的hash表，因此当service数量达到一定规模，hash表的查找效率就会显现出来，从而提高service的服务性能。</p>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/10</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "Kubernetes">Kubernetes</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2019/10/10/k8s-4/" >
             
                 <span>Kubernetes v1.11.0 二进制手动安装手册</span>
@@ -615,35 +645,6 @@
             <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "ELK">ELK</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/10/10/swagger/" >
-            
-                <span>Swagger API文档框架简单使用</span>
-        </a>
-        <div class="abstract-content">
-            <p>现在的互联网架构大多是前后端分离，前后端人员技术都在各自的道路上越走越远，而联系前后端技术的唯一联系就是API,API文档变成前后端人员的纽带，swagger就是一款很好的API文档框架。</p>
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/10</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" target="_blank" rel="noopener" data-tags = "python">python</a>
     
 </div>
             
@@ -3921,9 +3922,46 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 183
+        Total : 184
         </div>
         <!-- search  -->
         
@@ -3936,6 +3974,11 @@
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2020/09/02/gokit/" >gokit</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -4900,35 +4943,35 @@
     
         <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
     
-        <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
-    
         <span class="sidebar-tag-name" data-tags="bash"><span class="iconfont-archer">&#xe606;</span>bash</span>
     
-        <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
-    
-        <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
-    
-        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+        <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
     
         <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
-        <span class="sidebar-tag-name" data-tags="Kubernetes"><span class="iconfont-archer">&#xe606;</span>Kubernetes</span>
+        <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
     
-        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
+        <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Kubernetes"><span class="iconfont-archer">&#xe606;</span>Kubernetes</span>
     
         <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
     
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
     
-        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
+        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
         <span class="sidebar-tag-name" data-tags="lvs"><span class="iconfont-archer">&#xe606;</span>lvs</span>
     
+        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
+    
         <span class="sidebar-tag-name" data-tags="mongodb"><span class="iconfont-archer">&#xe606;</span>mongodb</span>
     
-        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
-    
         <span class="sidebar-tag-name" data-tags="mesh"><span class="iconfont-archer">&#xe606;</span>mesh</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="nc"><span class="iconfont-archer">&#xe606;</span>nc</span>
     
@@ -4936,9 +4979,9 @@
     
         <span class="sidebar-tag-name" data-tags="mogilefs"><span class="iconfont-archer">&#xe606;</span>mogilefs</span>
     
-        <span class="sidebar-tag-name" data-tags="openresty"><span class="iconfont-archer">&#xe606;</span>openresty</span>
-    
         <span class="sidebar-tag-name" data-tags="upgrade"><span class="iconfont-archer">&#xe606;</span>upgrade</span>
+    
+        <span class="sidebar-tag-name" data-tags="openresty"><span class="iconfont-archer">&#xe606;</span>openresty</span>
     
         <span class="sidebar-tag-name" data-tags="puppet"><span class="iconfont-archer">&#xe606;</span>puppet</span>
     
@@ -4956,15 +4999,15 @@
     
         <span class="sidebar-tag-name" data-tags="tcpdump"><span class="iconfont-archer">&#xe606;</span>tcpdump</span>
     
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
         <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
         <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
     
-        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
-    
         <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
+    
+        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
     
         <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
     
@@ -4980,19 +5023,19 @@
     
         <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
-        <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
-    
         <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
     
         <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
+    
+        <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
     
         <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
     
         <span class="sidebar-tag-name" data-tags="RPM"><span class="iconfont-archer">&#xe606;</span>RPM</span>
     
-        <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
-    
         <span class="sidebar-tag-name" data-tags="supervisord"><span class="iconfont-archer">&#xe606;</span>supervisord</span>
+    
+        <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
     
         <span class="sidebar-tag-name" data-tags="fastdfs"><span class="iconfont-archer">&#xe606;</span>fastdfs</span>
     
@@ -5037,9 +5080,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
-        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
-    
         <span class="sidebar-category-name" data-categories="Docker"><span class="iconfont-archer">&#xe60a;</span>Docker</span>
+    
+        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
         <span class="sidebar-category-name" data-categories="storage"><span class="iconfont-archer">&#xe60a;</span>storage</span>
     
@@ -5049,25 +5092,25 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
     
-        <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
-    
         <span class="sidebar-category-name" data-categories="Shell"><span class="iconfont-archer">&#xe60a;</span>Shell</span>
     
-        <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
+        <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
+    
+        <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
     
         <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
     
-        <span class="sidebar-category-name" data-categories="Java"><span class="iconfont-archer">&#xe60a;</span>Java</span>
+        <span class="sidebar-category-name" data-categories="bigdata"><span class="iconfont-archer">&#xe60a;</span>bigdata</span>
     
-        <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
+        <span class="sidebar-category-name" data-categories="Java"><span class="iconfont-archer">&#xe60a;</span>Java</span>
     
         <span class="sidebar-category-name" data-categories="Kubernetes"><span class="iconfont-archer">&#xe60a;</span>Kubernetes</span>
     
         <span class="sidebar-category-name" data-categories="hypervisor"><span class="iconfont-archer">&#xe60a;</span>hypervisor</span>
     
-        <span class="sidebar-category-name" data-categories="mysql"><span class="iconfont-archer">&#xe60a;</span>mysql</span>
-    
         <span class="sidebar-category-name" data-categories="mesh"><span class="iconfont-archer">&#xe60a;</span>mesh</span>
+    
+        <span class="sidebar-category-name" data-categories="mysql"><span class="iconfont-archer">&#xe60a;</span>mysql</span>
     
         <span class="sidebar-category-name" data-categories="tools"><span class="iconfont-archer">&#xe60a;</span>tools</span>
     
@@ -5085,9 +5128,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="optimization"><span class="iconfont-archer">&#xe60a;</span>optimization</span>
     
-        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
-    
         <span class="sidebar-category-name" data-categories="varnish"><span class="iconfont-archer">&#xe60a;</span>varnish</span>
+    
+        <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
     
         <span class="sidebar-category-name" data-categories="JAVA"><span class="iconfont-archer">&#xe60a;</span>JAVA</span>
     
