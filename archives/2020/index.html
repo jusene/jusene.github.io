@@ -361,12 +361,12 @@
                 <span>Kubernetes flannel网络解析</span>
         </a>
         <div class="abstract-content">
-            Flannel网络Flannel是CoreOS团队针对kubernetes设计的覆盖网络（Overlay Network）工具，Flannel通过给每台宿主机分配一个子网为容器提供虚拟网络，使用UDP封装IP包来创建overlay网络，并借助etcd维护网络的分配情况。
-flannel网络backend解决方案：
-
-hostgw 直接路由，适合局域网，性能好，仅适合二层可达的局域网
-vxlan 是flannel推荐的方式，需要通信的网络设备支持vxlan，具备很好的跨局域网通信，但使用了隧道封装，性能较差
-udp 改方式于vxlan很类似，对ip层网络进行封装，通常用于调试环境或者不支持...
+            <h2 id="Flannel网络"><a href="#Flannel网络" class="headerlink" title="Flannel网络"></a>Flannel网络</h2><p>Flannel是CoreOS团队针对kubernetes设计的覆盖网络（Overlay Network）工具，Flannel通过给每台宿主机分配一个子网为容器提供虚拟网络，使用UDP封装IP包来创建overlay网络，并借助etcd维护网络的分配情况。</p>
+<p>flannel网络backend解决方案：</p>
+<ul>
+<li>hostgw 直接路由，适合局域网，性能好，仅适合二层可达的局域网</li>
+<li>vxlan 是flannel推荐的方式，需要通信的网络设备支持vxlan，具备很好的跨局域网通信，但使用了隧道封装，性能较差</li>
+<li>udp 改方式于vxlan很类似，对ip层网络进行封装，通常用于调试环境或者不支持vxlan协议的网络环境
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -734,6 +734,12 @@ https://jusene.gitee.io/tools/skaffold/skaffold-linux-amd64
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
     
     
     
@@ -4996,9 +5002,9 @@ https://jusene.gitee.io/tools/skaffold/skaffold-linux-amd64
     
         <span class="sidebar-tag-name" data-tags="Kubernetes"><span class="iconfont-archer">&#xe606;</span>Kubernetes</span>
     
-        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
-    
         <span class="sidebar-tag-name" data-tags="bash"><span class="iconfont-archer">&#xe606;</span>bash</span>
+    
+        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
     
         <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
@@ -5010,9 +5016,9 @@ https://jusene.gitee.io/tools/skaffold/skaffold-linux-amd64
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
-        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
-    
         <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
+    
+        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
     
@@ -5076,17 +5082,17 @@ https://jusene.gitee.io/tools/skaffold/skaffold-linux-amd64
     
         <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
     
-        <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
+        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
     
         <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
     
-        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
+        <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
         <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
     
-        <span class="sidebar-tag-name" data-tags="RPM"><span class="iconfont-archer">&#xe606;</span>RPM</span>
-    
         <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="RPM"><span class="iconfont-archer">&#xe606;</span>RPM</span>
     
         <span class="sidebar-tag-name" data-tags="supervisord"><span class="iconfont-archer">&#xe606;</span>supervisord</span>
     

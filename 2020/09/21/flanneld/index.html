@@ -416,9 +416,9 @@ height:50vh;
 <ul>
 <li>hostgw 直接路由，适合局域网，性能好，仅适合二层可达的局域网</li>
 <li>vxlan 是flannel推荐的方式，需要通信的网络设备支持vxlan，具备很好的跨局域网通信，但使用了隧道封装，性能较差</li>
-<li>udp 改方式于vxlan很类似，对ip层网络进行封装，通常用于调试环境或者不支持vxlan协议的网络环境</li>
+<li>udp 改方式于vxlan很类似，对ip层网络进行封装，通常用于调试环境或者不支持vxlan协议的网络环境<a id="more"></a>
+Flannel vxlan原理图：<br><img src="/image/flanneld.png" alt=""></li>
 </ul>
-<p>Flannel vxlan原理图：<br><img src="/image/flanneld.png" alt=""></p>
 <p>IP package解包：</p>
 <ol>
 <li>头部TCP头部信息封装源宿主机到目的宿主机IP,MAC地址封装源MAC到下一跳MAC地址的网络信息</li>
@@ -495,7 +495,7 @@ height:50vh;
             <p>原文作者：<a href="http://jusene.github.io">Zhang Jusene</a>
             <p>原文链接：<a href="http://jusene.github.io/2020/09/21/flanneld/">http://jusene.github.io/2020/09/21/flanneld/</a>
             <p>发表日期：<a href="http://jusene.github.io/2020/09/21/flanneld/">September 21st 2020, 9:52:29 pm</a>
-            <p>更新日期：<a href="http://jusene.github.io/2020/09/21/flanneld/">September 23rd 2020, 11:42:24 pm</a>
+            <p>更新日期：<a href="http://jusene.github.io/2020/09/21/flanneld/">September 23rd 2020, 11:43:00 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -648,6 +648,12 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
     
     
     
@@ -4910,9 +4916,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Kubernetes"><span class="iconfont-archer">&#xe606;</span>Kubernetes</span>
     
-        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
-    
         <span class="sidebar-tag-name" data-tags="bash"><span class="iconfont-archer">&#xe606;</span>bash</span>
+    
+        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
     
         <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
@@ -4924,9 +4930,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
-        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
-    
         <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
+    
+        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
     
@@ -4990,17 +4996,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
     
-        <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
+        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
     
         <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
     
-        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
+        <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
         <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
     
-        <span class="sidebar-tag-name" data-tags="RPM"><span class="iconfont-archer">&#xe606;</span>RPM</span>
-    
         <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="RPM"><span class="iconfont-archer">&#xe606;</span>RPM</span>
     
         <span class="sidebar-tag-name" data-tags="supervisord"><span class="iconfont-archer">&#xe606;</span>supervisord</span>
     
