@@ -282,7 +282,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.2k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -418,7 +418,7 @@ height:50vh;
 <li>vxlan 是flannel推荐的方式，需要通信的网络设备支持vxlan，具备很好的跨局域网通信，但使用了隧道封装，性能较差</li>
 <li>udp 改方式于vxlan很类似，对ip层网络进行封装，通常用于调试环境或者不支持vxlan协议的网络环境</li>
 </ul>
-<p>Flannel vxlan原理图：<br>!(/image/flanneld.png)</p>
+<p>Flannel vxlan原理图：<br><img src="/image/flanneld.png" alt=""></p>
 <p>IP package解包：</p>
 <ol>
 <li>头部TCP头部信息封装源宿主机到目的宿主机IP,MAC地址封装源MAC到下一跳MAC地址的网络信息</li>
@@ -432,7 +432,7 @@ height:50vh;
 <li>源主机的flanneld服务将原本的数据内容udp封装后根据自己的路由表投递给目的节点的flanneld服务，数据到达以后被解包，然后直接进入目的节点的flannel0虚拟网络，然后被转发到目的主机的docker0虚拟网卡，最后就像本机容器通信一样的由docker0路由到达目标容器</li>
 </ul>
 <p>flannel网络实验可参考：<a href="https://jusene.github.io/2018/04/13/docker-flannel/">https://jusene.github.io/2018/04/13/docker-flannel/</a></p>
-<h2 id="Kubernetes中flannel网络"><a href="#Kubernetes中flannel网络" class="headerlink" title="Kubernetes中flannel网络"></a>Kubernetes中flannel网络</h2><p>!(/image/flanneld1.png)</p>
+<h2 id="Kubernetes中flannel网络"><a href="#Kubernetes中flannel网络" class="headerlink" title="Kubernetes中flannel网络"></a>Kubernetes中flannel网络</h2><p><img src="/image/flanneld1.png" alt=""></p>
 <ol>
 <li>cni0: 网桥设备，每创建一个pod都会创建一对veth pair，其中一端是pod的eth0，另一端是cni0网桥中的端口，pod中从eth0的流量都会到cni端口</li>
 </ol>
@@ -467,7 +467,26 @@ height:50vh;
 <ol start="3">
 <li>flannel.1</li>
 </ol>
-<p>flannel .1为vxlan设备,当数据包来到flannel.1时,需要将数据包封装起来,</p>
+<p>flannel.1为vxlan设备,当数据包来到flannel.1时,需要将数据包封装起来,vxlan需要封装mac地址信息，flannel.1通过flanneld程序从etcd中获取mac地址，并用此信息封装vxlan数据包。</p>
+<p>简单流程：</p>
+<ul>
+<li>数据包到达flannel.1通过查找路由表，知道数据包要通过flannel.1发往10.20.2.0</li>
+<li>通过arp cache表，知道目的的ip 10.20.2.4的mac地址（对端flannel.1的mac地址）</li>
+</ul>
+<ol start="4">
+<li>对端flannel.1</li>
+</ol>
+<p>对端eth0接受vxlan数据包，拆开数据包，转给flannel.1设备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">~]# route -n</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Kernel IP routing table</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">0.0.0.0         10.211.55.1     0.0.0.0         UG    100    0        0 eth0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">10.20.0.0       10.20.0.0       255.255.255.0   UG    0      0        0 flannel.1</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">10.20.1.0       10.20.1.0       255.255.255.0   UG    0      0        0 flannel.1</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">10.20.2.0       0.0.0.0         255.255.255.0   U     0      0        0 cni0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">10.211.55.0     0.0.0.0         255.255.255.0   U     100    0        0 eth0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0</span></pre></td></tr></table></figure>
+
+<p>通过路由表 10.20.2.0 的数据包发往cni0</p>
+<ol start="5">
+<li>cni0发送到pod</li>
+</ol>
+<p>cni0是一个网桥设备，通过peer veth将数据包发给pod</p>
+<p>查看arp cache</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">ip n | grep 10.20.2.4</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">10.20.2.4 dev cni0 lladdr ea:ca:7c:a8:5b:60 REACHABLE</span></pre></td></tr></table></figure>
+
 
     </article>
     <!-- license  -->
@@ -476,7 +495,7 @@ height:50vh;
             <p>原文作者：<a href="http://jusene.github.io">Zhang Jusene</a>
             <p>原文链接：<a href="http://jusene.github.io/2020/09/21/flanneld/">http://jusene.github.io/2020/09/21/flanneld/</a>
             <p>发表日期：<a href="http://jusene.github.io/2020/09/21/flanneld/">September 21st 2020, 9:52:29 pm</a>
-            <p>更新日期：<a href="http://jusene.github.io/2020/09/21/flanneld/">September 21st 2020, 11:53:49 pm</a>
+            <p>更新日期：<a href="http://jusene.github.io/2020/09/21/flanneld/">September 23rd 2020, 11:42:24 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -629,6 +648,10 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
     
     
     
@@ -4881,17 +4904,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="ssh"><span class="iconfont-archer">&#xe606;</span>ssh</span>
     
-        <span class="sidebar-tag-name" data-tags="ELK"><span class="iconfont-archer">&#xe606;</span>ELK</span>
-    
         <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="ELK"><span class="iconfont-archer">&#xe606;</span>ELK</span>
     
         <span class="sidebar-tag-name" data-tags="Kubernetes"><span class="iconfont-archer">&#xe606;</span>Kubernetes</span>
     
-        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
     
         <span class="sidebar-tag-name" data-tags="bash"><span class="iconfont-archer">&#xe606;</span>bash</span>
     
-        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
         <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
     
@@ -4903,9 +4926,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
-        <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
-    
         <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
+    
+        <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
     
         <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
     
@@ -4945,9 +4968,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="tcpdump"><span class="iconfont-archer">&#xe606;</span>tcpdump</span>
     
-        <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
-    
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
     
         <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
     
@@ -4967,21 +4990,21 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
     
-        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
-    
         <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
         <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
     
-        <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
+        <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
     
-        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+        <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
     
         <span class="sidebar-tag-name" data-tags="RPM"><span class="iconfont-archer">&#xe606;</span>RPM</span>
     
-        <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
     
         <span class="sidebar-tag-name" data-tags="supervisord"><span class="iconfont-archer">&#xe606;</span>supervisord</span>
+    
+        <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
     
         <span class="sidebar-tag-name" data-tags="fastdfs"><span class="iconfont-archer">&#xe606;</span>fastdfs</span>
     
@@ -5032,17 +5055,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="storage"><span class="iconfont-archer">&#xe60a;</span>storage</span>
     
-        <span class="sidebar-category-name" data-categories="Nosql"><span class="iconfont-archer">&#xe60a;</span>Nosql</span>
-    
         <span class="sidebar-category-name" data-categories="nginx"><span class="iconfont-archer">&#xe60a;</span>nginx</span>
+    
+        <span class="sidebar-category-name" data-categories="Nosql"><span class="iconfont-archer">&#xe60a;</span>Nosql</span>
     
         <span class="sidebar-category-name" data-categories="Kubernetes"><span class="iconfont-archer">&#xe60a;</span>Kubernetes</span>
     
         <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
     
-        <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
-    
         <span class="sidebar-category-name" data-categories="Shell"><span class="iconfont-archer">&#xe60a;</span>Shell</span>
+    
+        <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
     
         <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
     
