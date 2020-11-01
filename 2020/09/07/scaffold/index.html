@@ -282,7 +282,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">332</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -439,7 +439,156 @@ height:50vh;
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">skaffold init</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">apiVersion: skaffold&#x2F;v2beta7</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">kind: Config</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">metadata:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  name: app</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">build:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  artifacts:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  - image: jusene&#x2F;test-skaffold-app</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    context: app</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  - image: jusene&#x2F;test-skaffold-web</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    context: web</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">deploy:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">  kubectl:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    manifests:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    - app&#x2F;kubernetes&#x2F;deployment.yaml</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    - web&#x2F;kubernetes&#x2F;deployment.yaml</span></pre></td></tr></table></figure>
 
 <h2 id="开发模式"><a href="#开发模式" class="headerlink" title="开发模式"></a>开发模式</h2><p>skaffold dev采用开发循环，skaffold将监视应用程序的源文件，并在检测到更改后重建镜像发布到集群中。</p>
-<h2 id="持续交付"><a href="#持续交付" class="headerlink" title="持续交付"></a>持续交付</h2><p>skaffold run</p>
+<h2 id="持续交付"><a href="#持续交付" class="headerlink" title="持续交付"></a>持续交付</h2><p>skaffold run是用于一次性部署的单个命令，包括构建，标记，部署和等待部署：</p>
+<ul>
+<li>运行状态检查healthcheck，等待deployments稳定并仅在所有部署成功后才成功</li>
+<li>skaffold build -构建，标记工件并将其推送到仓库</li>
+<li>skaffold deploy -将构建的工件部署到集群</li>
+<li>skaffold render -为GitOps工作流程导出转换后的Kubernetes清单</li>
+</ul>
+<p>healthcheck默认情况下启用，通过–status-check=false标志禁用它</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">deploy:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  statusCheckDeadlineSeconds: 300 &#x2F;&#x2F; 如果未指定，则默认为10分钟</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  kubectl:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    manifests:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    - k8s-*</span></pre></td></tr></table></figure>
+
+<h2 id="流水线平台"><a href="#流水线平台" class="headerlink" title="流水线平台"></a>流水线平台</h2><h3 id="init"><a href="#init" class="headerlink" title="init"></a>init</h3><p>skaffold init是在几秒内启动并运行项目的简便方法，生成buid和deploy配置。</p>
+<p>skaffold init走任何的构建配置项目目录，并期待文件：Dockerfile,build.gradle/pom.xml,package.json,requiremenets.txt,go.mod。<br>init跳过大于500mb的文件</p>
+<p>kustomize项目部署：通常结构目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">app&#x2F;      &lt;- application source code, along with build configuration</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  main.go</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  Dockerfile</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">...</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">base&#x2F;     &lt;- base deploy configuration</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  kustomization.yaml</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  deployment.yaml</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">overlays&#x2F; &lt;- one or more nested directories, each with modified environment configuration</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  dev&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    deployment.yaml</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    kustomization.yaml</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  prod&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">...</span></pre></td></tr></table></figure>
+
+<p>退出码：<br>| 退出码 | 错误 |<br>| —– | —– |<br>| 101 |  找不到构建配置 ｜<br>| 102 | 找不到或生成k8s清单 |<br>| 102 | 发现现有的skaffold.yaml |<br>| 104 | 无法自动将生成器与图像名称匹配 |</p>
+<h3 id="build"><a href="#build" class="headerlink" title="build"></a>build</h3><h4 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h4><p>本地build，可通过显式<code>local</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">build:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  local: &#123;&#125;</span></pre></td></tr></table></figure>
+
+<p>成功构建工件后，Docker映像将被推送到远程注册表，要使用本地Docker守护程序，请将构建类型添加local到的build部分：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+<th>默认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>push</td>
+<td>应该将镜像推送到仓库，如果未指定，则仅在当前Kubernetes上下文连接到远程集群时才推送图像</td>
+<td></td>
+</tr>
+<tr>
+<td>tryImportMissing</td>
+<td>如果不在缓存中，是否尝试从docker本地或远程仓库导入</td>
+<td>false</td>
+</tr>
+<tr>
+<td>useDockerCLI</td>
+<td>使用docker命令行界面而不是Docker Engine API</td>
+<td></td>
+</tr>
+<tr>
+<td>useBuildkit</td>
+<td>使用BuildKit构建Docker镜像</td>
+<td>false</td>
+</tr>
+<tr>
+<td>concurrency</td>
+<td>可以同时构建多少个，0表示无限制</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">build:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  artifacts:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  - image: gcr.io&#x2F;k8s-skaffold&#x2F;example</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  local:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    push: true</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    concurrency: 0</span></pre></td></tr></table></figure>
+
+<h3 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h3><h4 id="kubectl"><a href="#kubectl" class="headerlink" title="kubectl"></a>kubectl</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">deploy:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  kubectl:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    manifests:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    - k8s-*</span></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+<th>默认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>manifests</td>
+<td>kubernetes yaml或json清单</td>
+<td>[“k8s/*.yaml”]</td>
+</tr>
+<tr>
+<td>remoteManifests</td>
+<td>kubernetes体现在远程集群中</td>
+<td>[]</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>传递给其他flag给kubectl</td>
+<td></td>
+</tr>
+<tr>
+<td>defaultNamespce</td>
+<td>如果未提供其他覆盖，则在部署时将默认名称空间传递给kubectl</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>flags部分提供以下选项:<br>| 选项 | 描述 | 默认 |<br>| —– | —– | —– |<br>| global | 在每个命令上传递其他标志 | [] |<br>| apply | 在kubectl apply 上传递其他标志 | [] |<br>| delete | 在kubectl delete 上传递其他标志 | [] |<br>| disableValidation | 启用后，将–validate=false标志传递给受支持的kubectl命令。| false |</p>
+<h4 id="kustomize"><a href="#kustomize" class="headerlink" title="kustomize"></a>kustomize</h4><p>kustomize允许Kubernetes开发人员自定义无模板的原始YAML文件，以用于多种用途。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">deploy:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  kustomize: &#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"># The deploy section above is equal to</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"># deploy:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">#   kustomize:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">#     paths: [&quot;.&quot;]</span></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+<th>默认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>paths</td>
+<td>kustomization文件的路径</td>
+<td>[“.”]</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>传递给其他flag给kubectl</td>
+<td></td>
+</tr>
+<tr>
+<td>buildArgs</td>
+<td>传递给的其他参数kustomize build</td>
+<td>[]</td>
+</tr>
+<tr>
+<td>defaultNamespace</td>
+<td>如果未提供其他覆盖，则在部署时将默认名称空间传递给kubectl</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h3><ul>
+<li>gitCommit记录使用git commits/references标记镜像</li>
+<li>sha256使用latest标记镜像</li>
+<li>envTemplate使用环境变量标记镜像</li>
+<li>datetime使用当前日期和时间</li>
+<li>customTemplate使用模版部件的现有标注器的组合</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">build:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  tagPolicy:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    gitCommit: &#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  artifacts:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  - image: gcr.io&#x2F;k8s-skaffold&#x2F;example</span></pre></td></tr></table></figure>
+<p>如果工作区在Git标签上，则使用该标签来标记图像</p>
+<p>envTemplate允许您在标签中使用环境变量。此策略要求您指定标记模板，在标记过程中，模板的一部分可以用环境变量的值替换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">build:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  tagPolicy:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    envTemplate:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">      template: &quot;&#123;&#123;.FOO&#125;&#125;&quot;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  artifacts:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  - image: gcr.io&#x2F;k8s-skaffold&#x2F;example</span></pre></td></tr></table></figure>
+
+<p>dateTime使用Skaffold开始构建工件的时间作为标签。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">build:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  tagPolicy:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    dateTime:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">      format: &quot;2006-01-02_15-04-05.999_MST&quot;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">      timezone: &quot;Local&quot;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  artifacts:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  - image: gcr.io&#x2F;k8s-skaffold&#x2F;example</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"># The tagPolicy section above is equal to</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"># tagPolicy:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">#   dateTime: &#123;&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="filesync"><a href="#filesync" class="headerlink" title="filesync"></a>filesync</h3><p>skaffold支持多种同步类型：</p>
+<ul>
+<li><code>manual</code>: 用户必须在本地工作区中指定文件，并在运行容器中指定目标。每种类型的工件都支持此功能。</li>
+<li><code>infer</code>: 每个更改文件的目标是从Dockerfile中的指令推断出来的</li>
+<li><code>auto</code>: Skaffold自动配置同步</li>
+</ul>
+<h4 id="manual"><a href="#manual" class="headerlink" title="manual"></a>manual</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">build:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  artifacts:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    - image: gcr.io&#x2F;k8s-skaffold&#x2F;node-example</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">      context: node</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">      sync:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        manual:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">          # sync a single file into the &#96;&#x2F;etc&#96; folder</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">          - src: &#39;.filebaserc&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">            dest: &#x2F;etc</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">          # sync files directly below &#96;static-html&#96; into &#96;static&#x2F;&#96;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">          - src: &#39;static-html&#x2F;*.html&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">            dest: static</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">          # sync any &#96;png&#96; file into the assets folder</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">          - src: &#39;**&#x2F;*.png&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">            dest: assets</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">          # sync all &#96;md&#96; files from &#96;content&#x2F;en&#96; into &#96;content&#96;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">          - src: &#39;content&#x2F;en&#x2F;**&#x2F;*.md&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">            dest: content</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">            strip: &#39;content&#x2F;en&#x2F;&#39;</span></pre></td></tr></table></figure>
+
+<h4 id="infer"><a href="#infer" class="headerlink" title="infer"></a>infer</h4><p>对于docker工件，Skaffold知道如何从工件的推断所需的目的地Dockerfile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">FROM hugo</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">ADD .filebaserc &#x2F;etc&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">ADD assets assets&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">COPY static-html static&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">COPY content&#x2F;en content&#x2F;</span></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">build:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  artifacts:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    - image: gcr.io&#x2F;k8s-skaffold&#x2F;node-example</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">      context: node</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">      sync:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        infer:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        - &#39;.filebaserc&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        - &#39;static-html&#x2F;*.html&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        - &#39;**&#x2F;*.png&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        - &#39;content&#x2F;en&#x2F;**&#x2F;*.md&#39;</span></pre></td></tr></table></figure>
+
+<h3 id="port-forwarding"><a href="#port-forwarding" class="headerlink" title="port forwarding"></a>port forwarding</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">portForward:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">- resourceType: deployment</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  resourceName: myDep</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  namespace: mynamespace  # </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  port: 8080 # </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  localPort: 9000 # *Optional*</span></pre></td></tr></table></figure>
+
 
     </article>
     <!-- license  -->
@@ -448,7 +597,7 @@ height:50vh;
             <p>原文作者：<a href="http://jusene.github.io">Zhang Jusene</a>
             <p>原文链接：<a href="http://jusene.github.io/2020/09/07/scaffold/">http://jusene.github.io/2020/09/07/scaffold/</a>
             <p>发表日期：<a href="http://jusene.github.io/2020/09/07/scaffold/">September 7th 2020, 9:30:45 pm</a>
-            <p>更新日期：<a href="http://jusene.github.io/2020/09/07/scaffold/">September 9th 2020, 12:31:39 am</a>
+            <p>更新日期：<a href="http://jusene.github.io/2020/09/07/scaffold/">November 1st 2020, 1:01:44 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -593,7 +742,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Skaffold"><span class="toc-number">1.</span> <span class="toc-text">Skaffold</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速开始"><span class="toc-number">2.</span> <span class="toc-text">快速开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#skaffold-打包多个项目"><span class="toc-number">3.</span> <span class="toc-text">skaffold 打包多个项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发模式"><span class="toc-number">4.</span> <span class="toc-text">开发模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#持续交付"><span class="toc-number">5.</span> <span class="toc-text">持续交付</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Skaffold"><span class="toc-number">1.</span> <span class="toc-text">Skaffold</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速开始"><span class="toc-number">2.</span> <span class="toc-text">快速开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#skaffold-打包多个项目"><span class="toc-number">3.</span> <span class="toc-text">skaffold 打包多个项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发模式"><span class="toc-number">4.</span> <span class="toc-text">开发模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#持续交付"><span class="toc-number">5.</span> <span class="toc-text">持续交付</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流水线平台"><span class="toc-number">6.</span> <span class="toc-text">流水线平台</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#init"><span class="toc-number">6.1.</span> <span class="toc-text">init</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#build"><span class="toc-number">6.2.</span> <span class="toc-text">build</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker"><span class="toc-number">6.2.1.</span> <span class="toc-text">Docker</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy"><span class="toc-number">6.3.</span> <span class="toc-text">Deploy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#kubectl"><span class="toc-number">6.3.1.</span> <span class="toc-text">kubectl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#kustomize"><span class="toc-number">6.3.2.</span> <span class="toc-text">kustomize</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-number">6.4.</span> <span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filesync"><span class="toc-number">6.5.</span> <span class="toc-text">filesync</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#manual"><span class="toc-number">6.5.1.</span> <span class="toc-text">manual</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#infer"><span class="toc-number">6.5.2.</span> <span class="toc-text">infer</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#port-forwarding"><span class="toc-number">6.6.</span> <span class="toc-text">port forwarding</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -606,42 +755,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -4091,12 +4204,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/letsencrypt/" >Let's Encrypt免费申请SSL证书</a>
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/celery/" >Celery 分布式任务队列(一)</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/celery/" >Celery 分布式任务队列(一)</a>
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/letsencrypt/" >Let's Encrypt免费申请SSL证书</a>
         </li>
     
     
@@ -4880,9 +4993,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
-        <span class="sidebar-tag-name" data-tags="troubshooting"><span class="iconfont-archer">&#xe606;</span>troubshooting</span>
-    
         <span class="sidebar-tag-name" data-tags="boot"><span class="iconfont-archer">&#xe606;</span>boot</span>
+    
+        <span class="sidebar-tag-name" data-tags="troubshooting"><span class="iconfont-archer">&#xe606;</span>troubshooting</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
@@ -4894,33 +5007,47 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="ELK"><span class="iconfont-archer">&#xe606;</span>ELK</span>
     
-        <span class="sidebar-tag-name" data-tags="Kubernetes"><span class="iconfont-archer">&#xe606;</span>Kubernetes</span>
+        <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
     
-        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
+    
+        <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
+    
+        <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
+    
+        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
+    
+        <span class="sidebar-tag-name" data-tags="Kubernetes"><span class="iconfont-archer">&#xe606;</span>Kubernetes</span>
     
         <span class="sidebar-tag-name" data-tags="bash"><span class="iconfont-archer">&#xe606;</span>bash</span>
     
-        <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
+        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
     
-        <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
+        <span class="sidebar-tag-name" data-tags="grub"><span class="iconfont-archer">&#xe606;</span>grub</span>
     
         <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
     
         <span class="sidebar-tag-name" data-tags="bigdata"><span class="iconfont-archer">&#xe606;</span>bigdata</span>
     
-        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+        <span class="sidebar-tag-name" data-tags="heartbeat"><span class="iconfont-archer">&#xe606;</span>heartbeat</span>
     
-        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="kvm"><span class="iconfont-archer">&#xe606;</span>kvm</span>
     
-        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
-    
         <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
+    
+        <span class="sidebar-tag-name" data-tags="kickstart"><span class="iconfont-archer">&#xe606;</span>kickstart</span>
     
         <span class="sidebar-tag-name" data-tags="lvs"><span class="iconfont-archer">&#xe606;</span>lvs</span>
     
         <span class="sidebar-tag-name" data-tags="mongodb"><span class="iconfont-archer">&#xe606;</span>mongodb</span>
+    
+        <span class="sidebar-tag-name" data-tags="mesh"><span class="iconfont-archer">&#xe606;</span>mesh</span>
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
@@ -4934,17 +5061,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="openresty"><span class="iconfont-archer">&#xe606;</span>openresty</span>
     
-        <span class="sidebar-tag-name" data-tags="mesh"><span class="iconfont-archer">&#xe606;</span>mesh</span>
-    
         <span class="sidebar-tag-name" data-tags="puppet"><span class="iconfont-archer">&#xe606;</span>puppet</span>
     
         <span class="sidebar-tag-name" data-tags="rabbitmq"><span class="iconfont-archer">&#xe606;</span>rabbitmq</span>
     
-        <span class="sidebar-tag-name" data-tags="rsync"><span class="iconfont-archer">&#xe606;</span>rsync</span>
-    
         <span class="sidebar-tag-name" data-tags="saltstack"><span class="iconfont-archer">&#xe606;</span>saltstack</span>
     
-        <span class="sidebar-tag-name" data-tags="cncf"><span class="iconfont-archer">&#xe606;</span>cncf</span>
+        <span class="sidebar-tag-name" data-tags="rsync"><span class="iconfont-archer">&#xe606;</span>rsync</span>
     
         <span class="sidebar-tag-name" data-tags="screen"><span class="iconfont-archer">&#xe606;</span>screen</span>
     
@@ -4953,18 +5076,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="svn"><span class="iconfont-archer">&#xe606;</span>svn</span>
     
         <span class="sidebar-tag-name" data-tags="tcpdump"><span class="iconfont-archer">&#xe606;</span>tcpdump</span>
-    
-        <span class="sidebar-tag-name" data-tags="ansible"><span class="iconfont-archer">&#xe606;</span>ansible</span>
-    
-        <span class="sidebar-tag-name" data-tags="consul"><span class="iconfont-archer">&#xe606;</span>consul</span>
-    
-        <span class="sidebar-tag-name" data-tags="corosync"><span class="iconfont-archer">&#xe606;</span>corosync</span>
-    
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
-        <span class="sidebar-tag-name" data-tags="Django"><span class="iconfont-archer">&#xe606;</span>Django</span>
-    
-        <span class="sidebar-tag-name" data-tags="dns"><span class="iconfont-archer">&#xe606;</span>dns</span>
     
         <span class="sidebar-tag-name" data-tags="etcd"><span class="iconfont-archer">&#xe606;</span>etcd</span>
     
@@ -4976,17 +5087,19 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="cache"><span class="iconfont-archer">&#xe606;</span>cache</span>
     
-        <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
-    
         <span class="sidebar-tag-name" data-tags="openssl"><span class="iconfont-archer">&#xe606;</span>openssl</span>
+    
+        <span class="sidebar-tag-name" data-tags="vpn"><span class="iconfont-archer">&#xe606;</span>vpn</span>
     
         <span class="sidebar-tag-name" data-tags="prometheus"><span class="iconfont-archer">&#xe606;</span>prometheus</span>
     
         <span class="sidebar-tag-name" data-tags="optimization"><span class="iconfont-archer">&#xe606;</span>optimization</span>
     
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
         <span class="sidebar-tag-name" data-tags="RPM"><span class="iconfont-archer">&#xe606;</span>RPM</span>
     
-        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+        <span class="sidebar-tag-name" data-tags="cncf"><span class="iconfont-archer">&#xe606;</span>cncf</span>
     
         <span class="sidebar-tag-name" data-tags="supervisord"><span class="iconfont-archer">&#xe606;</span>supervisord</span>
     
@@ -5033,9 +5146,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
     
-        <span class="sidebar-category-name" data-categories="troubshooting"><span class="iconfont-archer">&#xe60a;</span>troubshooting</span>
-    
         <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
+        <span class="sidebar-category-name" data-categories="troubshooting"><span class="iconfont-archer">&#xe60a;</span>troubshooting</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
@@ -5047,15 +5160,19 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="Nosql"><span class="iconfont-archer">&#xe60a;</span>Nosql</span>
     
+        <span class="sidebar-category-name" data-categories="ansible"><span class="iconfont-archer">&#xe60a;</span>ansible</span>
+    
+        <span class="sidebar-category-name" data-categories="Shell"><span class="iconfont-archer">&#xe60a;</span>Shell</span>
+    
+        <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
+    
+        <span class="sidebar-category-name" data-categories="Django"><span class="iconfont-archer">&#xe60a;</span>Django</span>
+    
         <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
     
         <span class="sidebar-category-name" data-categories="Kubernetes"><span class="iconfont-archer">&#xe60a;</span>Kubernetes</span>
     
-        <span class="sidebar-category-name" data-categories="Shell"><span class="iconfont-archer">&#xe60a;</span>Shell</span>
-    
         <span class="sidebar-category-name" data-categories="boot"><span class="iconfont-archer">&#xe60a;</span>boot</span>
-    
-        <span class="sidebar-category-name" data-categories="cluster"><span class="iconfont-archer">&#xe60a;</span>cluster</span>
     
         <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
     
@@ -5065,13 +5182,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="hypervisor"><span class="iconfont-archer">&#xe60a;</span>hypervisor</span>
     
+        <span class="sidebar-category-name" data-categories="mesh"><span class="iconfont-archer">&#xe60a;</span>mesh</span>
+    
         <span class="sidebar-category-name" data-categories="mysql"><span class="iconfont-archer">&#xe60a;</span>mysql</span>
     
         <span class="sidebar-category-name" data-categories="tools"><span class="iconfont-archer">&#xe60a;</span>tools</span>
     
         <span class="sidebar-category-name" data-categories="openresty"><span class="iconfont-archer">&#xe60a;</span>openresty</span>
-    
-        <span class="sidebar-category-name" data-categories="mesh"><span class="iconfont-archer">&#xe60a;</span>mesh</span>
     
         <span class="sidebar-category-name" data-categories="puppet"><span class="iconfont-archer">&#xe60a;</span>puppet</span>
     
@@ -5079,13 +5196,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="saltstack"><span class="iconfont-archer">&#xe60a;</span>saltstack</span>
     
-        <span class="sidebar-category-name" data-categories="cncf"><span class="iconfont-archer">&#xe60a;</span>cncf</span>
-    
-        <span class="sidebar-category-name" data-categories="ansible"><span class="iconfont-archer">&#xe60a;</span>ansible</span>
-    
-        <span class="sidebar-category-name" data-categories="Django"><span class="iconfont-archer">&#xe60a;</span>Django</span>
-    
         <span class="sidebar-category-name" data-categories="optimization"><span class="iconfont-archer">&#xe60a;</span>optimization</span>
+    
+        <span class="sidebar-category-name" data-categories="cncf"><span class="iconfont-archer">&#xe60a;</span>cncf</span>
     
         <span class="sidebar-category-name" data-categories="tomcat"><span class="iconfont-archer">&#xe60a;</span>tomcat</span>
     
